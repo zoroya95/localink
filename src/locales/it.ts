@@ -7,16 +7,13 @@ export default {
     },
     landing: {
         hero: {
-            title: "Transformez votre passion",
-            title_span: "en revenus",
-            sub_title_1: "La plateforme la plus simple pour vendre en ligne avec seulement",
-            sub_title_2: "5%",
-            sub_title_3: "de commission",
-            sans_frais: "Sans frais cachés",
-            support: "Support 24/7",
-            demarrer: "Démarrer maintenant - 0€/an",
-            demo: "Voir démonstration"
-    
+          title: "Aumenta la tua visibilità locale",
+          sub_title: "con la potenza di Google Maps",
+          description_1: "La nostra soluzione genera automaticamente file KML ottimizzati per creare",
+          description_2_blue: "migliaia di posizioni, percorsi e polilinee",
+          description_3: "migliaia di posizioni, percorsi e polilinee",
+          demarrer: "Prova gratuita di 14 giorni",
+          confiance: "Oltre 500 aziende si fidano già di noi"
         },
         cta: {
             title: "Prêt à commencer à vendre ?",
@@ -54,38 +51,38 @@ export default {
             ]
         },
         faq: {
-            title: "Questions fréquentes",
-            items: [
-                {
-                    question: "1. Quels documents sont nécessaires pour s'inscrire ?",
-                    answer: "Aucun document n'est requis pour commencer à vendre. Notre plateforme est ouverte à tous sans vérification d'identité préalable."
-                },
-                {
-                  question: "2. Comment créer mon compte vendeur ?",
-                  answer: "Cliquez sur 'S'inscrire', entrez votre email, choisissez un mot de passe et payez l'abonnement annuel de 0€. Aucun document n'est requis."
-                },
-                {
-                  question: "3. Quels sont les frais de commission ?",
-                  answer: "Nous prenons seulement 5% par vente, bien en dessous des standards du marché (généralement 10-15%)."
-                },
-                {
-                  question: "4. Comment sont gérés les paiements ?",
-                  answer: "Les fonds sont versés directement sur votre compte bancaire chaque semaine. Nous utilisons Stripe pour des transferts sécurisés."
-                },
-                {
-                  question: "5. Puis-je vendre n'importe quel type de produit ?",
-                  answer: "Oui, tant que vos produits sont légaux. Certaines catégories réglementées (alcool, tabac) nécessitent une vérification d'âge."
-                },
-                {
-                  question: "6. Comment fonctionne la livraison ?",
-                  answer: "Vous gérez la logistique vous-même ou utilisez notre partenariat avec des transporteurs à tarifs préférentiels."
-                },
-                {
-                  question: "7. Puis-je annuler mon abonnement ?",
-                  answer: "Oui, à tout moment depuis votre dashboard. Aucun remboursement pour l'année en cours, mais aucune pénalité."
-                }
-            ]
-        },
+  title: "Domande frequenti",
+  items: [
+    {
+      question: "Come funziona la generazione dei file KML?",
+      answer: "Il nostro sistema genera automaticamente file KML ottimizzati contenenti centinaia di migliaia di posizioni strategiche, decine di percorsi credibili e polilinee complesse per massimizzare la tua visibilità su Google My Maps.",
+    },
+    {
+      question: "Quanti punti geografici posso generare?",
+      answer: "In base al tuo abbonamento, puoi generare fino a 250.000 punti strategici per mappa, con opzioni per distribuirli in modo credibile nella tua area operativa.",
+    },
+    {
+      question: "In che modo percorsi e polilinee migliorano la mia visibilità?",
+      answer: "I nostri algoritmi creano reti stradali realistiche che rafforzano la tua presenza geografica. Questi percorsi sono ottimizzati per apparire naturalmente nei risultati di ricerca locali.",
+    },
+    {
+      question: "Con quale frequenza viene aggiornato Google My Maps?",
+      answer: "Gli aggiornamenti vengono sincronizzati quotidianamente con l'ecosistema Google. Il nostro sistema gestisce le modifiche in modo intelligente per evitare segnali negativi algoritmici.",
+    },
+    {
+      question: "È conforme alle linee guida di Google?",
+      answer: "La nostra tecnologia utilizza metodi al 100% conformi, creando una presenza geografica credibile senza manipolare i risultati. Ottimizziamo invece di barare.",
+    },
+    {
+      question: "Posso monitorare l’impatto sul mio traffico locale?",
+      answer: "Sì, il nostro cruscotto analitico mostra l’evoluzione della tua visibilità sulla mappa, il traffico generato e il tuo posizionamento nelle ricerche 'vicino a me'.",
+    },
+    {
+      question: "Come gestite la copertura internazionale?",
+      answer: "Adattiamo automaticamente le strategie di posizionamento alle specificità regionali, tenendo conto delle differenze culturali e delle pratiche locali di utilizzo delle mappe.",
+    }
+  ]
+},
         footer: {
             year: "Tous droits réservés.",
             CGU: "CGU",

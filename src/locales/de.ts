@@ -7,16 +7,13 @@ export default {
     },
     landing: {
         hero: {
-            title: "Transformez votre passion",
-            title_span: "en revenus",
-            sub_title_1: "La plateforme la plus simple pour vendre en ligne avec seulement",
-            sub_title_2: "5%",
-            sub_title_3: "de commission",
-            sans_frais: "Sans frais cachés",
-            support: "Support 24/7",
-            demarrer: "Démarrer maintenant - 0€/an",
-            demo: "Voir démonstration"
-    
+          title: "Steigern Sie Ihre lokale Sichtbarkeit",
+          sub_title: "mit der Power von Google Maps",
+          description_1: "Unsere Lösung generiert automatisch optimierte KML-Dateien zur Erstellung von",
+          description_2_blue: "tausenden von Positionen, Routen und Polylinien",
+          description_3: "tausenden von Positionen, Routen und Polylinien",
+          demarrer: "14 Tage kostenlos testen",
+          confiance: "Über 500 Unternehmen vertrauen uns bereits"
         },
         cta: {
             title: "Prêt à commencer à vendre ?",
@@ -54,38 +51,38 @@ export default {
             ]
         },
         faq: {
-            title: "Questions fréquentes",
-            items: [
-                {
-                    question: "1. Quels documents sont nécessaires pour s'inscrire ?",
-                    answer: "Aucun document n'est requis pour commencer à vendre. Notre plateforme est ouverte à tous sans vérification d'identité préalable."
-                },
-                {
-                  question: "2. Comment créer mon compte vendeur ?",
-                  answer: "Cliquez sur 'S'inscrire', entrez votre email, choisissez un mot de passe et payez l'abonnement annuel de 0€. Aucun document n'est requis."
-                },
-                {
-                  question: "3. Quels sont les frais de commission ?",
-                  answer: "Nous prenons seulement 5% par vente, bien en dessous des standards du marché (généralement 10-15%)."
-                },
-                {
-                  question: "4. Comment sont gérés les paiements ?",
-                  answer: "Les fonds sont versés directement sur votre compte bancaire chaque semaine. Nous utilisons Stripe pour des transferts sécurisés."
-                },
-                {
-                  question: "5. Puis-je vendre n'importe quel type de produit ?",
-                  answer: "Oui, tant que vos produits sont légaux. Certaines catégories réglementées (alcool, tabac) nécessitent une vérification d'âge."
-                },
-                {
-                  question: "6. Comment fonctionne la livraison ?",
-                  answer: "Vous gérez la logistique vous-même ou utilisez notre partenariat avec des transporteurs à tarifs préférentiels."
-                },
-                {
-                  question: "7. Puis-je annuler mon abonnement ?",
-                  answer: "Oui, à tout moment depuis votre dashboard. Aucun remboursement pour l'année en cours, mais aucune pénalité."
-                }
-            ]
-        },
+  title: "Häufig gestellte Fragen",
+  items: [
+    {
+      question: "Wie funktioniert die Generierung von KML-Dateien?",
+      answer: "Unser System erstellt automatisch optimierte KML-Dateien mit Hunderttausenden strategischen Positionen, Dutzenden glaubwürdigen Routen und komplexen Polylinien, um Ihre Sichtbarkeit in Google My Maps zu maximieren.",
+    },
+    {
+      question: "Wie viele geografische Punkte kann ich generieren?",
+      answer: "Je nach Abonnement können Sie bis zu 250.000 strategische Punkte pro Karte generieren, mit Optionen zur glaubwürdigen Verteilung in Ihrem Einsatzgebiet.",
+    },
+    {
+      question: "Wie verbessern Routen und Polylinien meine Sichtbarkeit?",
+      answer: "Unsere Algorithmen erstellen realistische Straßennetze, die Ihre geografische Präsenz stärken. Diese Routen sind so optimiert, dass sie in lokalen Suchergebnissen natürlich erscheinen.",
+    },
+    {
+      question: "Wie häufig werden Google My Maps aktualisiert?",
+      answer: "Die Aktualisierungen werden täglich mit dem Google-Ökosystem synchronisiert. Unser System verwaltet Änderungen intelligent, um algorithmische Warnsignale zu vermeiden.",
+    },
+    {
+      question: "Entspricht das den Google-Richtlinien?",
+      answer: "Unsere Technologie verwendet zu 100 % konforme Methoden und schafft eine glaubwürdige geografische Präsenz, ohne die Ergebnisse zu manipulieren. Wir optimieren statt zu betrügen.",
+    },
+    {
+      question: "Kann ich die Auswirkungen auf meinen lokalen Verkehr verfolgen?",
+      answer: "Ja, unser Analyse-Dashboard zeigt die Entwicklung Ihrer Karten-Sichtbarkeit, den erzeugten Verkehr und Ihre Platzierung bei 'in meiner Nähe'-Suchanfragen.",
+    },
+    {
+      question: "Wie verwalten Sie die internationale Abdeckung?",
+      answer: "Wir passen die Positionierungsstrategien automatisch an regionale Besonderheiten an und berücksichtigen kulturelle Unterschiede sowie lokale Kartennutzungspraktiken.",
+    }
+  ]
+},
         footer: {
             year: "Tous droits réservés.",
             CGU: "CGU",

@@ -21,7 +21,7 @@ const SignUp = ({ action }: SignUpProps) => {
 
     return (
         <div className="min-h-screen h-screen w-screen bg-gray-50 flex items-center justify-center">
-            <div className="w-full h-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 bg-white shadow-2xl rounded-2xl overflow-hidden">
+            <div className="w-full h-full  mx-auto grid grid-cols-1 md:grid-cols-2 bg-white overflow-hidden">
                 {/* Colonne gauche : d'avis */}
                 <div className="flex flex-col justify-center items-center bg-gradient-to-br from-blue-500 to-blue-500 p-0 text-white relative h-full w-full">
                     <div className="flex flex-1 w-full h-full items-center justify-center">

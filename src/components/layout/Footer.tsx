@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const Footer = () => {
@@ -7,7 +9,20 @@ const Footer = () => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                     {/* Logo et description */}
                     <div className="col-span-2">
-                        <span className="text-2xl font-bold text-blue-500">Localink</span>
+                        <Link 
+                            href="/" 
+                            className="flex items-center gap-4 transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg"
+                            aria-label="Localink - Retour à l'accueil"
+                        >
+                            <Image
+                                src="/logo/localink.png"
+                                alt="Logo Localink"
+                                width={140}  // augmente à ta guise : 120, 160, etc.
+                                height={140}
+                                className="object-contain drop-shadow-md"
+                                priority
+                            />
+                        </Link>
                         <p className="mt-4 text-sm text-gray-500">
                             La solution tout-en-un pour connecter les commerces locaux avec leurs clients.
                         </p>

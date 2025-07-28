@@ -14,6 +14,7 @@ import {
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import LocaleSelectLanguage from "@/app/[locale]/LocaleSelectLanguage";
+import Image from "next/image";
 
 const navLinks = [
     {
@@ -37,10 +38,21 @@ const Header = () => {
     return (
         <header className="w-full border-b bg-background/80 backdrop-blur sticky top-0 z-50 shadow-sm">
             <div className="container mx-auto flex items-center justify-between py-2 px-4 md:px-10">
-                {/* Logo */}
-                <Link href="/" className="flex items-center gap-2 font-extrabold text-2xl md:text-3xl">
-                    <span className="tracking-tight text-blue-500 drop-shadow-lg">localink</span>
+                <Link 
+                    href="/" 
+                    className="flex items-center gap-4 transition-transform hover:scale-105 "
+                    aria-label="Localink - Retour à l'accueil"
+                >
+                    <Image
+                        src="/logo/localink.png"
+                        alt="Logo Localink"
+                        width={140}  // augmente à ta guise : 120, 160, etc.
+                        height={140}
+                        className="object-contain drop-shadow-md"
+                        priority
+                    />
                 </Link>
+
 
                 {/* Desktop Nav */}
                 <nav className="hidden md:flex items-center gap-2 lg:gap-4 xl:gap-6">

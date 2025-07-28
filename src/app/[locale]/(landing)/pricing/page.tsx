@@ -1,9 +1,10 @@
 "use client"
 
-import { Check, Zap, MapPin, Search, Globe, BarChart2, BadgeCheck, Rocket, Shield, Infinity } from 'lucide-react'
+import { Check, Zap, MapPin, Search, Globe, BarChart2, BadgeCheck, Rocket, Shield, Infinity, Route, Layers } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import FAQSection from '@/components/layout/FAQSection'
 import HighlightText from '@/components/layout/HighlightText'
+import Link from 'next/link'
 
 export default function PricingPage() {
   const plans = [
@@ -51,37 +52,37 @@ export default function PricingPage() {
   ]
 
   const features = [
-    {
-      icon: <MapPin className="w-5 h-5 text-blue-500" />,
-      title: "Visibilité multi-plateformes",
-      description: "Synchronisation sur 50+ annuaires et apps locales"
-    },
-    {
-      icon: <Search className="w-5 h-5 text-blue-500" />,
-      title: "SEO local optimisé",
-      description: "Améliorez votre classement dans les recherches 'près de moi'"
-    },
-    {
-      icon: <Zap className="w-5 h-5  text-blue-500" />,
-      title: "Gestion centralisée",
-      description: "Contrôlez toutes vos fiches depuis un seul dashboard"
-    },
-    {
-      icon: <Globe className="w-5 h-5 text-blue-500" />,
-      title: "Mises à jour automatiques",
-      description: "Modifications propagées instantanément partout"
-    },
-    {
-      icon: <BarChart2 className="w-5 h-5 text-blue-500" />,
-      title: "Analytics complets",
-      description: "Suivez vos performances et votre réputation"
-    },
-    {
-      icon: <Shield className="w-5 h-5 text-blue-500" />,
-      title: "Gestion des avis",
-      description: "Centralisez et répondez à tous vos avis clients"
-    }
-  ]
+  {
+    icon: <Layers className="w-5 h-5 text-blue-500" />,
+    title: "Génération KML avancée",
+    description: "Export de fichiers KML optimisés pour Google My Maps"
+  },
+  {
+    icon: <MapPin className="w-5 h-5 text-blue-500" />,
+    title: "Points géolocalisés",
+    description: "Jusqu'à 250 000 positions stratégiques générées"
+  },
+  {
+    icon: <Route className="w-5 h-5 text-blue-500" />,
+    title: "Réseau de routes",
+    description: "Génération de dizaines d'itinéraires crédibles"
+  },
+  {
+    icon: <Globe className="w-5 h-5 text-blue-500" />,
+    title: "Polylignes complexes",
+    description: "Création de tracés avancés pour une couverture réaliste"
+  },
+  {
+    icon: <BarChart2 className="w-5 h-5 text-blue-500" />,
+    title: "Optimisation Maps",
+    description: "Algorithme spécialisé pour le référencement Google Local"
+  },
+  {
+    icon: <Shield className="w-5 h-5 text-blue-500" />,
+    title: "Mises à jour automatiques",
+    description: "Synchronisation régulière avec l'écosystème Google"
+  }
+];
 
   return (
     <main className="py-16 px-4 sm:px-6 lg:px-8" aria-label="Tarification">
@@ -135,7 +136,9 @@ export default function PricingPage() {
                       : "bg-gray-100 hover:bg-gray-200 text-gray-800"
                   }`}
                 >
+                  <Link href={"/auth/sign-in"} >
                   {plan.cta}
+                  </Link>
                 </Button>
               </div>
 
@@ -156,71 +159,77 @@ export default function PricingPage() {
           ))}
         </div>
 
-        {/* Feature comparison */}
-        <div className="mt-24 max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            Fonctionnalités incluses
+        {/* Feature comparaison */}
+        <div className="mt-24 max-w-6xl mx-auto bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+          <h2 className="text-3xl font-bold text-center text-gray-900 py-8">
+            Comparaison des fonctionnalités
           </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
-            <div className="md:col-span-2">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Nos solutions</h3>
-              <ul className="space-y-4">
+  
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-gray-200">
+                  <th className="py-4 px-6 text-left w-1/3 min-w-[300px] bg-gray-50">
+                    <span className="sr-only">Fonctionnalités</span>
+                  </th>
+                  {plans.map((plan, index) => (
+                    <th 
+                      key={index} 
+                      className={`py-4 px-6 text-center ${plan.popular ? 'bg-blue-50' : 'bg-gray-50'}`}
+                    >
+                      <div className="flex flex-col items-center">
+                        <span className="font-bold text-lg">{plan.name}</span>
+                        <span className="text-sm text-gray-500">{plan.price}{plan.period}</span>
+                      </div>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
                 {features.map((feature, index) => (
-                  <li key={index} className="flex items-start">
-                    {feature.icon}
-                    <span className="ml-3">
-                      <strong className="text-gray-900">{feature.title}</strong>
-                      <p className="text-gray-600 text-sm">{feature.description}</p>
-                    </span>
-                  </li>
+                  <tr key={index} className="border-b border-gray-200 last:border-b-0">
+                    <td className="py-4 px-6">
+                      <div className="flex items-center">
+                        <div className="flex-shrink-0">
+                          {feature.icon}
+                        </div>
+                        <div className="ml-4">
+                          <div className="font-medium text-gray-900">{feature.title}</div>
+                          <div className="text-sm text-gray-500">{feature.description}</div>
+                        </div>
+                      </div>
+                    </td>
+                    
+                    {/* Gratuit */}
+                    <td className="py-4 px-6 text-center">
+                      {index < 3 ? (
+                        <Check className="mx-auto text-green-500" />
+                      ) : (
+                        <span className="text-gray-400">—</span>
+                      )}
+                    </td>
+                    
+                    {/* Professionnel */}
+                    <td className="py-4 px-6 text-center bg-blue-50">
+                      {index < 5 ? (
+                        <Check className="mx-auto text-green-500" />
+                      ) : (
+                        <span className="text-gray-400">—</span>
+                      )}
+                    </td>
+                    
+                    {/* Premium */}
+                    <td className="py-4 px-6 text-center">
+                      <Check className="mx-auto text-green-500" />
+                    </td>
+                  </tr>
                 ))}
-              </ul>
-            </div>
-            
-            <div className="md:col-span-1 text-center">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Découverte</h3>
-              <ul className="space-y-4">
-                {features.map((_, index) => (
-                  <li key={index} className="h-12 flex items-center justify-center">
-                    {index < 4 ? <Check className="text-green-500" /> : <span className="text-gray-400">—</span>}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            
-            <div className="md:col-span-1 text-center bg-blue-50 rounded-lg pt-4">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Pro</h3>
-              <ul className="space-y-4">
-                {features.map((_, index) => (
-                  <li key={index} className="h-12 flex items-center justify-center">
-                    <Check className="text-green-500" />
-                  </li>
-                ))}
-              </ul>
-            </div>
-            
-            <div className="md:col-span-1 text-center">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Enterprise</h3>
-              <ul className="space-y-4">
-                {features.map((_, index) => (
-                  <li key={index} className="h-12 flex items-center justify-center">
-                    <BadgeCheck className="text-blue-500" />
-                  </li>
-                ))}
-              </ul>
-            </div>
-            
-            <div className="md:col-span-1 text-center">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Premium</h3>
-              <ul className="space-y-4">
-                {features.map((_, index) => (
-                  <li key={index} className="h-12 flex items-center justify-center">
-                    <Rocket className="text-purple-500" />
-                  </li>
-                ))}
-              </ul>
-            </div>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="bg-gray-50 px-6 py-4 text-center text-sm text-gray-500">
+            Tous les plans incluent une génération illimitée de cartes et un support technique
           </div>
         </div>
 

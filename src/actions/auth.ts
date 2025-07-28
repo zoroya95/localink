@@ -189,21 +189,16 @@ export const verifyPassword = async (password: string, hash: string) => {
     return passwordHash === hash;
 }
 
-export const registerUser = async (email: string, password: string, name?: string, googleId?: string) => {
+export const registerUser = async (email: string, password: string, storeName?: string) => {
     const passwordHash = await hashPassword(password);
     try {
         const user = await prisma.user.create({
             data: {
                 email,
                 passwordHash,
-                name: name || "",
-                googleId: "",
-                
-
-                
+                // storeName si vous souhaitez le gérer
             }
         });
-        
 
         const safeUser = {
             ...user,

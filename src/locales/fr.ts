@@ -9,15 +9,13 @@ export default {
     },
     landing: {
         hero: {
-            title: "Transformez votre passion",
-            title_span: "en revenus",
-            sub_title_1: "La plateforme la plus simple pour vendre en ligne avec seulement",
-            sub_title_2: "2,5%",
-            sub_title_3: "de commission",
-            sans_frais: "Sans frais cachés",
-            support: "Support 24/7",
-            demarrer: "Démarrer maintenant - 25€/an",
-            demo: "Voir démonstration"
+            title: "Boostez votre visibilité locale",
+            sub_title: "avec la puissance des cartes Google",
+            description_1: "Notre solution génère automatiquement des fichiers KML optimisés pour créer",
+            description_2_blue:"des milliers de positions, routes et polylines",
+            description_3: "des milliers de positions, routes et polylines",
+            demarrer: "Essai gratuit 14 jours",
+            confiance: "+500 entreprises nous font déjà confiance"
     
         },
         cta: {
@@ -55,39 +53,42 @@ export default {
                   }
             ]
         },
-        "faq": {
-      "title": "Questions fréquentes",
-      "items": [
-        {
-          "question": "1. Comment LocalAdd améliore ma présence en ligne ?",
-          "answer": "Notre plateforme synchronise vos informations professionnelles sur 50+ annuaires et plateformes, garantissant une visibilité cohérente partout où vos clients cherchent."
+        faq: {
+          title: "Questions fréquentes",
+          items: [
+             {
+              question: "Comment fonctionne la génération de fichiers KML ?",
+              answer: "Notre système crée automatiquement des fichiers KML optimisés contenant des centaines de milliers de positions stratégiques, des dizaines de routes crédibles et des polylignes complexes pour maximiser votre visibilité sur Google My Maps.",
+            },
+            {
+              question: "Combien de points géographiques puis-je générer ?",
+              answer: "Selon votre abonnement, vous pouvez générer jusqu'à 250 000 points stratégiques par carte, avec des options pour les répartir de manière crédible sur votre zone d'activité.",
+            },
+            {
+              question: "Comment les routes et polylignes améliorent-elles ma visibilité ?",
+              answer: "Nos algorithmes créent des réseaux de routes réalistes qui renforcent votre présence géographique. Ces tracés sont optimisés pour apparaître naturellement dans les résultats de recherche locaux.",
+            },
+            {
+              question: "Quelle est la fréquence de mise à jour sur Google My Maps ?",
+              answer: "Les mises à jour sont synchronisées quotidiennement avec l'écosystème Google. Notre système gère intelligemment les modifications pour éviter les red flags algorithmiques.",
+            },
+            {
+              question: "Est-ce conforme aux guidelines de Google ?",
+              answer: "Notre technologie utilise des méthodes 100% conformes, en créant une présence géographique crédible sans manipuler les résultats. Nous optimisons plutôt que nous trichons.",
+            },
+            
+            {
+              question: "Puis-je suivre l'impact sur mon trafic local ?",
+              answer: "Oui, notre dashboard analytique montre l'évolution de votre visibilité cartographique, le trafic généré et votre positionnement dans les recherches 'près de moi'.",
+              
+            },
+            {
+              question: "Comment gérez-vous la couverture internationale ?",
+              answer: "Nous adaptons automatiquement les stratégies de positionnement aux spécificités régionales, en tenant compte des différences culturelles et des pratiques locales d'utilisation des cartes.",
+              
+            }
+          ]
         },
-        {
-          "question": "2. Avec quelles plateformes êtes-vous connectés ?",
-          "answer": "Nous intégrons Google My Business, Facebook, Yelp, Apple Maps, TripAdvisor et 45+ annuaires spécialisés dans votre secteur d'activité."
-        },
-        {
-          "question": "3. En combien de temps verrai-je des résultats ?",
-          "answer": "La plupart des entreprises voient leur classement s'améliorer en 2-4 semaines. La synchronisation complète sur toutes les plateformes s'effectue en 48 heures."
-        },
-        {
-          "question": "4. Puis-je gérer les avis clients via LocalAdd ?",
-          "answer": "Oui ! Notre dashboard centralise tous vos avis et propose des suggestions de réponses optimisées par IA."
-        },
-        {
-          "question": "5. Proposez-vous de l'optimisation SEO local ?",
-          "answer": "Absolument. Notre système optimise automatiquement vos fiches avec des mots-clés locaux, des données structurées et du géociblage."
-        },
-        {
-          "question": "6. Comment fonctionne la publication automatisée ?",
-          "answer": "Créez votre contenu une fois et nous l'adapterons pour le publier sur toutes vos plateformes aux moments les plus pertinents."
-        },
-        {
-          "question": "7. Qu'est-ce qui différencie LocalAdd des solutions manuelles ?",
-          "answer": "Notre IA analyse la concurrence locale pour vous fournir des recommandations personnalisées, vous faisant gagner 10+ heures par semaine en gestion digitale."
-        }
-      ]
-    },
         footer: {
             year: "Tous droits réservés.",
             CGU: "CGU",
