@@ -1,10 +1,9 @@
 "use client";
 
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import { ImQuotesLeft } from "react-icons/im";
-import { ImQuotesRight } from "react-icons/im";
+import { ImQuotesLeft, ImQuotesRight } from "react-icons/im";
 
 type Testimonial = {
     quote: string;
@@ -12,6 +11,7 @@ type Testimonial = {
     designation: string;
     src: string;
 };
+
 export const AnimatedTestimonials = ({
     testimonials,
     autoplay = false,
@@ -20,17 +20,16 @@ export const AnimatedTestimonials = ({
     autoplay?: boolean;
 }) => {
     const [active, setActive] = useState(0);
+    const [direction, setDirection] = useState<"left" | "right">("right");
 
     const handleNext = () => {
+        setDirection("right");
         setActive((prev) => (prev + 1) % testimonials.length);
     };
 
     const handlePrev = () => {
+        setDirection("left");
         setActive((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-    };
-
-    const isActive = (index: number) => {
-        return index === active;
     };
 
     useEffect(() => {
@@ -40,133 +39,92 @@ export const AnimatedTestimonials = ({
         }
     }, [autoplay]);
 
-    const randomRotateY = () => {
-        return Math.floor(Math.random() * 21) - 10;
-    };
     return (
-        <div className="mx-auto max-w-sm px-4 py-20 font-sans antialiased md:max-w-4xl md:px-8 lg:px-12">
-            <div className="relative grid grid-cols-1 gap-20 md:grid-cols-2">
-                <div>
-                    <div className="relative h-80 w-full">
-                        <AnimatePresence>
-                            {testimonials.map((testimonial, index) => (
-                                <motion.div
-                                    key={testimonial.src}
-                                    initial={{
-                                        opacity: 0,
-                                        scale: 0.9,
-                                        z: -100,
-                                        rotate: randomRotateY(),
-                                    }}
-                                    animate={{
-                                        opacity: isActive(index) ? 1 : 0.7,
-                                        scale: isActive(index) ? 1 : 0.95,
-                                        z: isActive(index) ? 0 : -100,
-                                        rotate: isActive(index) ? 0 : randomRotateY(),
-                                        zIndex: isActive(index)
-                                            ? 40
-                                            : testimonials.length + 2 - index,
-                                        y: isActive(index) ? [0, -80, 0] : 0,
-                                    }}
-                                    exit={{
-                                        opacity: 0,
-                                        scale: 0.9,
-                                        z: 100,
-                                        rotate: randomRotateY(),
-                                    }}
-                                    transition={{
-                                        duration: 0.4,
-                                        ease: "easeInOut",
-                                    }}
-                                    className="absolute inset-0 origin-bottom"
-                                >
-                                    <img
-                                        src={testimonial.src}
-                                        alt={testimonial.name}
-                                        width={500}
-                                        height={500}
-                                        draggable={false}
-                                        className="h-full w-full rounded-3xl object-cover object-center border-4 border-blue-400 shadow-lg"
-                                    />
-                                </motion.div>
-                            ))}
-                        </AnimatePresence>
+        <div className="mx-auto max-w-7xl px-4 py-12 md:py-20">
+            <div className="flex flex-col items-center gap-12 lg:flex-row lg:items-stretch lg:gap-24">
+                {/* Partie image - Nouveau style */}
+                <div className="relative h-96 w-full max-w-md lg:h-[480px]">
+                    <AnimatePresence mode="wait" custom={direction}>
+                        <motion.div
+                            key={active}
+                            custom={direction}
+                            initial={{ opacity: 0, x: direction === "right" ? 100 : -100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: direction === "right" ? -100 : 100 }}
+                            transition={{ duration: 0.5, ease: "easeInOut" }}
+                            className="absolute inset-0 h-full w-full"
+                        >
+                            <div className="relative h-full w-full overflow-hidden rounded-2xl shadow-2xl">
+                                <img
+                                    src={testimonials[active].src}
+                                    alt={testimonials[active].name}
+                                    className="h-full w-full object-cover"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
+                                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                                    <h3 className="text-2xl font-bold">
+                                        {testimonials[active].name}
+                                    </h3>
+                                    <p className="text-blue-200">
+                                        {testimonials[active].designation}
+                                    </p>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </AnimatePresence>
+
+                    {/* Miniatures */}
+                    <div className="absolute -bottom-8 left-0 right-0 flex justify-center gap-2">
+                        {testimonials.map((_, index) => (
+                            <button
+                                key={index}
+                                onClick={() => {
+                                    setDirection(index > active ? "right" : "left");
+                                    setActive(index);
+                                }}
+                                className={`h-2 w-8 rounded-full transition-all duration-300 ${index === active ? "bg-blue-500 w-12" : "bg-gray-300"}`}
+                            />
+                        ))}
                     </div>
                 </div>
-                <div className="flex flex-col justify-between py-4">
-                    <motion.div
-                        key={active}
-                        initial={{
-                            y: 20,
-                            opacity: 0,
-                        }}
-                        animate={{
-                            y: 0,
-                            opacity: 1,
-                        }}
-                        exit={{
-                            y: -20,
-                            opacity: 0,
-                        }}
-                        transition={{
-                            duration: 0.2,
-                            ease: "easeInOut",
-                        }}
-                    >
-                        <h3 className="text-2xl font-bold ">
-                            {testimonials[active].name}
-                        </h3>
-                        <p className="text-sm ">
-                            {testimonials[active].designation}
-                        </p>
-                        <div className="mt-8 flex flex-col  gap-1">
-                             <div className="flex justify-start ">
-                                <ImQuotesLeft />
-                            </div>
-                            <motion.p className=" text-lg text-gray-700">
-                                {testimonials[active].quote.split(" ").map((word, index) => (
-                                    <motion.span
-                                        key={index}
-                                        initial={{
-                                            filter: "blur(10px)",
-                                            opacity: 0,
-                                            y: 5,
-                                        }}
-                                        animate={{
-                                            filter: "blur(0px)",
-                                            opacity: 1,
-                                            y: 0,
-                                        }}
-                                        transition={{
-                                            duration: 0.2,
-                                            ease: "easeInOut",
-                                            delay: 0.02 * index,
-                                        }}
-                                        className="inline-block"
-                                    >
-                                        {word}&nbsp;
-                                    </motion.span>
-                                ))}
-                            </motion.p>
-                            <div className="flex justify-end ">
-                                <ImQuotesRight />
-                            </div>
-                        </div>
 
-                    </motion.div>
-                    <div className="flex gap-4 pt-12 md:pt-0">
-                        <button
-                            onClick={handlePrev}
-                            className="group/button flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 border-2 border-blue-400 shadow hover:bg-blue-200 transition-colors"
+                {/* Partie texte */}
+                <div className="flex flex-1 flex-col justify-center">
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={active}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.4 }}
+                            className="max-w-lg"
                         >
-                            <IconArrowLeft className="h-6 w-6 text-blue-500 transition-transform duration-300 group-hover/button:rotate-12" />
-                        </button>
-                        <button
-                            onClick={handleNext}
-                            className="group/button flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 border-2 border-blue-400 shadow hover:bg-blue-200 transition-colors"
-                        >
-                            <IconArrowRight className="h-6 w-6 text-blue-500 transition-transform duration-300 group-hover/button:-rotate-12" />
-                        </button>
+                            <div className="relative">
+                                
+                                <p className="text-2xl font-medium leading-relaxed text-gray-800 md:text-3xl">
+                                    {testimonials[active].quote}
+                                </p>
+                                
+                            </div>
+                        </motion.div>
+                    </AnimatePresence>
+
+                    {/* Contrôles */}
+                    <div className="mt-12 flex items-center justify-between">
+                        <div className="flex gap-2">
+                            <button
+                                onClick={handlePrev}
+                                className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md transition-all hover:bg-gray-50 hover:shadow-lg"
+                            >
+                                <IconArrowLeft className="h-5 w-5 text-gray-700" />
+                            </button>
+                            <button
+                                onClick={handleNext}
+                                className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md transition-all hover:bg-gray-50 hover:shadow-lg"
+                            >
+                                <IconArrowRight className="h-5 w-5 text-gray-700" />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

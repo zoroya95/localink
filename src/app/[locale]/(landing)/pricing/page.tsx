@@ -8,53 +8,44 @@ import HighlightText from '@/components/layout/HighlightText'
 export default function PricingPage() {
   const plans = [
     {
-      name: "Découverte",
-      price: "0€",
+      name: "Gratuit",
+      price: "0$",
       period: "/mois",
-      description: "Essai gratuit de notre plateforme",
-      cta: "Essayer gratuitement",
+      description: "Pour tester et découvrir la puissance de l’outil.",
+      cta: "S’enregistrer",
       popular: false,
       features: [
-        "1 établissement",
-        "Synchronisation basique",
-        "3 plateformes connectées",
-        "Support par email",
-        "Analytics de base"
+        "3 Clients sauvegardés",
+        "200 points maximum par carte",
+        "3 itinéraires maximum par carte"
       ]
     },
     {
       name: "Professionnel",
-      price: "49€",
+      price: "39.99$",
       period: "/mois",
-      description: "Solution complète pour TPE/PME",
-      cta: "S'abonner",
+      description: "Idéal pour les indépendants et les petites entreprises.",
+      cta: "Choisissez le plan Pro",
       popular: true,
       features: [
-        "5 établissements",
-        "Synchronisation complète",
-        "15+ plateformes connectées",
-        "Gestion des avis",
-        "SEO local optimisé",
-        "Support prioritaire",
-        "Rapports mensuels"
+        "50 clients sauvegardés",
+        "2 500 Nombre maximum de points par carte",
+        "20 itinéraires maximum par carte",
+        "Assistance par e-mail"
       ]
     },
     {
-      name: "Enterprise",
-      price: "199€",
+      name: "Premium",
+      price: "99.99$",
       period: "/mois",
-      description: "Solution sur mesure pour groupes",
-      cta: "Contactez-nous",
+      description: "Pour les agences et les gros utilisateurs.",
+      cta: "Passez au Premium",
       popular: false,
       features: [
-        "Établissements illimités",
-        "Synchronisation en temps réel",
-        "50+ plateformes connectées",
-        "Dashboard personnalisé",
-        "API d'intégration",
-        "Support dédié 24/7",
-        "Analytics avancés",
-        "Compte manager"
+        "Clients Unlimited",
+        "Points illimités",
+        "50 itinéraires maximum par carte",
+        "Assistance prioritaire"
       ]
     }
   ]
@@ -98,10 +89,10 @@ export default function PricingPage() {
         {/* Hero section */}
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-            Boostez votre <HighlightText variant={"fancy-slant"} color='blue'>visibilité locale</HighlightText>
+            Une tarification simple et adaptée à  <HighlightText variant={"fancy-slant"} color='blue'>votre croissance</HighlightText>
           </h1>
           <p className="mt-6 text-xl text-gray-600 max-w-3xl mx-auto">
-            Des outils professionnels pour être trouvé par vos clients, sur tous les canaux.
+           Choisissez le plan qui correspond à vos ambitions.
           </p>
         </div>
 
@@ -138,7 +129,7 @@ export default function PricingPage() {
                 </div>
                 
                 <Button 
-                  className={`w-full py-6 text-lg ${
+                  className={`w-full py-6 text-lg cursor-pointer ${
                     plan.popular 
                       ? "bg-blue-500 hover:bg-blue-600 text-white" 
                       : "bg-gray-100 hover:bg-gray-200 text-gray-800"

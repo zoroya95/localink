@@ -4,63 +4,70 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 export default function PartnersSection() {
-    const [count, setCount] = useState(0);
-    const targetCount = 5000;
+  const [count, setCount] = useState(0);
+  const targetCount = 5000;
 
-    // Animation du compteur
-    useEffect(() => {
-        const duration = 2500; // 2.5 secondes
-        const increment = targetCount / (duration / 16);
-        const timer = setInterval(() => {
-            setCount((prev) => {
-                const newCount = Math.min(prev + increment, targetCount);
-                if (newCount >= targetCount) clearInterval(timer);
-                return Math.floor(newCount);
-            });
-        }, 16);
-        return () => clearInterval(timer);
-    }, []);
+  // Animation du compteur
+  useEffect(() => {
+    const duration = 2000; // 2 secondes
+    const increment = targetCount / (duration / 16);
+    let startValue = 0;
+    
+    const timer = setInterval(() => {
+      startValue += increment;
+      if (startValue >= targetCount) {
+        setCount(targetCount);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(startValue));
+      }
+    }, 16);
 
-    // Logos des partenaires
-    const partners = [
-        { id: 1, logo: "/entreprise/bilo.png", alt: "Entreprise 1" },
-        { id: 2, logo: "/entreprise/claudia.png", alt: "Entreprise 2" },
-        { id: 3, logo: "/entreprise/pocfly.png", alt: "Entreprise 3" },
-        { id: 4, logo: "/entreprise/savoie.png", alt: "Entreprise 4" },
-        { id: 5, logo: "/entreprise/claudia.png", alt: "Entreprise 5" },
-        { id: 6, logo: "/entreprise/pocfly.png", alt: "Entreprise 6" },
-    ];
+    return () => clearInterval(timer);
+  }, []);
 
-    return (
-        <section className="py-12 bg-white">
-            <div className="container mx-auto px-4 text-center">
-                <h2 className="text-3xl font-bold text-blue-500 mb-6">
-                    Nos partenaires satisfaits
-                </h2>
-                <div className="text-5xl font-bold  mb-8">
-                    Plus de{" "}
-                    <span className="count text-blue-600">
-                        {count.toLocaleString()}
-                    </span>{" "}
-                    points de vente satisfaits
-                </div>
-                {/* Grille de logos */}
-                <div className="flex flex-wrap justify-center gap-16 mt-12">
-                    {partners.map((partner) => (
-                        <div
-                            key={partner.id}
-                            className="w-32 h-32 relative    flex items-center justify-center hover:scale-105 hover:border-blue-500 transition-all group"
-                        >
-                            <Image
-                                src={partner.logo}
-                                alt={partner.alt}
-                                fill
-                                className="object-contain grayscale group-hover:grayscale-0 group-hover:drop-shadow-lg transition-all duration-300"
-                            />
-                        </div>
-                    ))}
-                </div>
+  // Logos des partenaires
+  const partners = [
+    { id: 1, logo: "/entreprise/bilo.png", alt: "Bilo" },
+    { id: 2, logo: "/entreprise/claudia.png", alt: "Claudia" },
+    { id: 3, logo: "/entreprise/pocfly.png", alt: "Pocfly" },
+    { id: 4, logo: "/entreprise/savoie.png", alt: "Savoie" },
+    { id: 5, logo: "/entreprise/claudia.png", alt: "Claudia" },
+    { id: 6, logo: "/entreprise/pocfly.png", alt: "Pocfly" },
+  ];
+
+  return (
+    <section className="py-16 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-14">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Nos partenaires de confiance
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Rejoignez les entreprises qui optimisent leur visibilité avec Localink
+          </p>
+        </div>
+
+        {/* Grille de logos */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 md:gap-12">
+          {partners.map((partner) => (
+            <div 
+              key={partner.id}
+              className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 flex items-center justify-center h-40"
+            >
+              <div className="relative w-full h-full">
+                <Image
+                  src={partner.logo}
+                  alt={partner.alt}
+                  fill
+                  className="object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
+                  sizes="(max-width: 768px) 100px, 150px"
+                />
+              </div>
             </div>
-        </section>
-    );
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }

@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import React, { useState } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Menu } from "lucide-react"
+import React, { useState } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Menu } from "lucide-react";
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -12,8 +12,8 @@ import {
     NavigationMenuList,
     NavigationMenuTrigger,
     navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
-import LocaleSelectLanguage from "@/app/[locale]/LocaleSelectLanguage"
+} from "@/components/ui/navigation-menu";
+import LocaleSelectLanguage from "@/app/[locale]/LocaleSelectLanguage";
 
 const navLinks = [
     {
@@ -26,36 +26,13 @@ const navLinks = [
         ]
     },
     {
-        name: "Secteurs",
-        href: "#secteurs",
-        items: [
-            { title: "Restauration", href: "#restauration", description: "Solutions pour restaurants et cafés" },
-            { title: "Commerce", href: "#commerce", description: "Outils pour boutiques physiques" },
-            { title: "Services", href: "#services", description: "Pour les professionnels de service" },
-        ]
-    },
-    {
         name: "Tarifs",
-        href: "#tarifs",
-        items: [
-            { title: "Starter", href: "/pricing", description: "Parfait pour les petites entreprises" },
-            { title: "Pro", href: "/pricing", description: "Pour les entreprises en croissance" },
-            { title: "Enterprise", href: "/pricing", description: "Solution complète sur mesure" },
-        ]
+        href: "/pricing",
     },
-    {
-        name: "Apropos",
-        href: "#apropos",
-        items: [
-            { title: "Notre équipe", href: "#equipe", description: "Découvrez qui nous sommes" },
-            { title: "Contact", href: "#contact", description: "Comment nous joindre" },
-            { title: "Carrières", href: "#carrieres", description: "Rejoignez notre équipe" },
-        ]
-    },
-]
+];
 
 const Header = () => {
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
 
     return (
         <header className="w-full border-b bg-background/80 backdrop-blur sticky top-0 z-50 shadow-sm">
@@ -91,11 +68,14 @@ const Header = () => {
                                             </NavigationMenuContent>
                                         </>
                                     ) : (
-                                        <Link href={link.href} legacyBehavior passHref>
-                                            <NavigationMenuLink className={navigationMenuTriggerStyle() + " text-base font-semibold text-muted-foreground hover:text-blue-500 px-3 py-2 rounded-lg transition-colors duration-200"}>
+                                        <NavigationMenuLink asChild>
+                                            <a 
+                                                href={link.href}
+                                                className={`${navigationMenuTriggerStyle()} text-base font-semibold text-muted-foreground hover:text-blue-500 px-3 py-2 rounded-lg transition-colors duration-200`}
+                                            >
                                                 {link.name}
-                                            </NavigationMenuLink>
-                                        </Link>
+                                            </a>
+                                        </NavigationMenuLink>
                                     )}
                                 </NavigationMenuItem>
                             ))}
@@ -167,8 +147,8 @@ const Header = () => {
                 </div>
             )}
         </header>
-    )
-}
+    );
+};
 
 const ListItem = React.forwardRef<
     React.ElementRef<"a">,
@@ -189,8 +169,8 @@ const ListItem = React.forwardRef<
                 </a>
             </NavigationMenuLink>
         </li>
-    )
-})
-ListItem.displayName = "ListItem"
+    );
+});
+ListItem.displayName = "ListItem";
 
-export default Header
+export default Header;

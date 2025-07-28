@@ -1,44 +1,66 @@
-"use client"
+"use client";
 
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
+import { FaMapMarkerAlt, FaRoute, FaLayerGroup, FaGoogle } from "react-icons/fa";
 
 export function AnimatedTestimonialsDemo() {
   const testimonials = [
     {
       quote:
-        "LocalAdd a révolutionné notre visibilité en ligne. En quelques semaines, nos réservations ont augmenté de 40%.",
-      name: "Marie Dupont",
-      designation: "Gérante du Café des Arts",
-      src: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=3560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "En 3 mois, notre visibilité sur Google Maps a explosé grâce aux 15 000 points stratégiques générés par Localink. Notre trafic local a augmenté de 220%.",
+      name: "Marc Dubois",
+      designation: "Directeur de chaîne hôtelière",
+      src: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      stats: [
+        { icon: <FaGoogle className="text-blue-500" />, value: "+220% trafic" },
+        { icon: <FaMapMarkerAlt className="text-blue-500" />, value: "15k points" }
+      ]
     },
     {
       quote:
-        "La synchronisation automatique avec Google et les réseaux sociaux nous fait gagner un temps précieux chaque jour.",
+        "Le système de routes virtuelles a donné une crédibilité incroyable à notre réseau de distribution. Nos partenaires sont impressionnés par notre couverture géographique.",
+      name: "Sophie Lambert",
+      designation: "Responsable logistique",
+      src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      stats: [
+        { icon: <FaRoute className="text-blue-500" />, value: "45 routes générées" },
+        { icon: <FaLayerGroup className="text-blue-500" />, value: "3 couches KML" }
+      ]
+    },
+    {
+      quote:
+        "Avant Localink, nos 12 agences étaient invisibles sur Maps. Maintenant, nous dominons les recherches locales avec un maillage territorial parfait.",
       name: "Thomas Leroy",
-      designation: "Directeur du Spa Zenitude",
-      src: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      designation: "Directeur d'agences immobilières",
+      src: "https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      stats: [
+        { icon: <FaMapMarkerAlt className="text-blue-500" />, value: "12 agences visibles" },
+        { icon: <FaGoogle className="text-blue-500" />, value: "Top 3 recherches" }
+      ]
     },
     {
       quote:
-        "Grâce à LocalAdd, nous avons pu centraliser la gestion de nos 5 succursales sur une seule plateforme intuitive.",
-      name: "Sophie Martin",
-      designation: "Responsable réseau de coiffure",
-      src: "https://images.unsplash.com/photo-1623582854588-d60de57fa33f?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "La génération automatique de polylignes a transformé notre petite entreprise en acteur régional crédible en 6 semaines seulement.",
+      name: "Amélie Chen",
+      designation: "Fondatrice de Chen Logistics",
+      src: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      stats: [
+        { icon: <FaRoute className="text-blue-500" />, value: "28 polylignes" },
+        { icon: <FaGoogle className="text-blue-500" />, value: "+180% leads" }
+      ]
     },
     {
       quote:
-        "Les outils de suivi de réputation nous alertent immédiatement sur les avis clients, ce qui nous permet de réagir vite.",
-      name: "Ahmed Benali",
-      designation: "Gérant Hôtel Bellevue",
-      src: "https://images.unsplash.com/photo-1636041293178-808a6762ab39?q=80&w=3464&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      quote:
-        "L'équipe nous a accompagnés pas à pas dans la mise en place. Un service client réactif et compétent.",
-      name: "Camille Rousseau",
-      designation: "Franchisée Optique 2000",
-      src: "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
+        "Notre KML personnalisé avec 8 000 points de vente virtuels nous a permis de décrocher un contrat majeur avec un distributeur national.",
+      name: "David Moreau",
+      designation: "PDG de Moreau Distribution",
+      src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      stats: [
+        { icon: <FaMapMarkerAlt className="text-blue-500" />, value: "8k points" },
+        { icon: <FaLayerGroup className="text-blue-500" />, value: "5 couches stratégiques" }
+      ]
+    }
   ];
+
   return <AnimatedTestimonials testimonials={testimonials} />;
 }

@@ -36,22 +36,7 @@ const SignIn = ({ action }: SignInProps) => {
                 <div className="flex flex-col justify-center items-center p-8 h-full w-full">
                     <h2 className="mb-2 text-3xl font-extrabold text-blue-500 text-center">Se connecter</h2>
                     <p className="mb-6 text-center text-base text-gray-600">Découvrez où se classe votre entreprise sur Google et obtenez des conseils pratiques pour vous améliorer.</p>
-                    {/* Bouton Google */}
-                    <button
-                        type="button"
-                        className="w-full flex items-center justify-center gap-2 py-2 px-4 mb-4 border border-gray-300 rounded-2xl shadow-sm text-base font-medium bg-white cursor-pointer text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 hover:text-blue-500 transition-colors duration-200"
-                        style={{ height: '48px' }}
-                        onClick={() => window.location.href = '/login/google'}
-                    >
-                        {/* Remplacer par <Image src="/google/googlee.svg" ... /> si disponible */}
-                        <svg width="20" height="20" viewBox="0 0 48 48"><g><path fill="#4285F4" d="M24 9.5c3.54 0 6.73 1.22 9.24 3.22l6.91-6.91C36.16 2.34 30.4 0 24 0 14.98 0 6.73 5.06 2.69 12.44l8.51 6.62C13.13 13.13 18.18 9.5 24 9.5z" /><path fill="#34A853" d="M46.1 24.5c0-1.54-.14-3.03-.39-4.47H24v8.47h12.44c-.54 2.77-2.18 5.12-4.64 6.7l7.19 5.59C43.98 36.16 46.1 30.77 46.1 24.5z" /><path fill="#FBBC05" d="M11.2 28.06c-1.01-2.77-1.01-5.77 0-8.54l-8.51-6.62C.98 16.77 0 20.26 0 24c0 3.74.98 7.23 2.69 10.1l8.51-6.04z" /><path fill="#EA4335" d="M24 48c6.4 0 12.16-2.11 16.55-5.77l-7.19-5.59c-2.01 1.35-4.59 2.13-7.36 2.13-5.82 0-10.87-3.63-13.13-8.56l-8.51 6.04C6.73 42.94 14.98 48 24 48z" /></g></svg>
-                        Se connecter avec Google
-                    </button>
-                    <div className="flex items-center w-full my-4">
-                        <div className="flex-1 h-px bg-gray-300" />
-                        <span className="px-3 text-sm text-gray-500 bg-white font-medium">ou continuez avec</span>
-                        <div className="flex-1 h-px bg-gray-300" />
-                    </div>
+                    
 
                     <form action={formAction} className="space-y-6 w-full max-w-md">
                         <div>

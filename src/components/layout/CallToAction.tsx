@@ -2,7 +2,7 @@ import React from "react";
 
 const CallToAction = () => {
     return (
-        <section className="py-8 bg-gradient-to-r max-w-6xl m-auto from-blue-400 via-blue-500 to-blue-600 text-white text-center rounded-4xl">
+        <section className="py-8 bg-gradient-to-r mb-8 max-w-6xl m-auto from-blue-400 via-blue-500 to-blue-600 text-white text-center rounded-4xl">
             <div className="max-w-xl mx-auto px-2">
                 <h2 className="text-2xl md:text-3xl font-extrabold mb-4 ">
                     Prêt à booster votre visibilité locale ?
