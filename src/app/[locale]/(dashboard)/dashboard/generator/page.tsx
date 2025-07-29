@@ -1,20 +1,55 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
+import { useSearchParams, useRouter } from 'next/navigation';
 
 export default function KMLGeneratorPage() {
-  const [nomEntreprise, setNomEntreprise] = useState(""); 
-  const [urlEntreprise, setUrlEntreprise] = useState("");
-  const [telEntreprise, setTelEntreprise] = useState("");
-  const [motsCles, setMotsCles] = useState("");
-  const [adresseDepart, setAdresseDepart] = useState("");
-  const [nombrePoints, setNombrePoints] = useState(100);
-  const [nombreCercles, setNombreCercles] = useState(5);
-  const [nombreItineraires, setNombreItineraires] = useState(10);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  
+  // Utilisez un seul état formData pour tous les champs
+  const [formData, setFormData] = useState({
+    nomEntreprise: '',
+    urlEntreprise: '',
+    urlMyBusiness: '',
+    telEntreprise: '',
+    motsCles: '',
+    adresseDepart: '',
+    nombrePoints: 100,
+    nombreCercles: 5,
+    nombreItineraires: 10
+  });
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showGuideModal, setShowGuideModal] = useState(false);
+
+  // Effet pour le pré-remplissage
+  useEffect(() => {
+    const loadClientData = () => {
+      // 1. Vérifiez d'abord sessionStorage
+      const savedData = sessionStorage.getItem('currentClientData');
+      if (savedData) {
+        try {
+          const clientData = JSON.parse(savedData);
+          setFormData(prev => ({
+            ...prev,
+            nomEntreprise: clientData.nomEntreprise || '',
+            urlEntreprise: clientData.urlEntreprise || '',
+            urlMyBusiness: clientData.urlMyBusiness || '',
+            telEntreprise: clientData.telEntreprise || '',
+            motsCles: clientData.motsCles || '',
+            adresseDepart: clientData.adresseDepart || ''
+          }));
+          sessionStorage.removeItem('currentClientData');
+        } catch (err) {
+          console.error("Erreur de parsing des données client:", err);
+        }
+      }
+    };
+
+    loadClientData();
+  }, []);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -25,16 +60,7 @@ export default function KMLGeneratorPage() {
       const response = await fetch("/api/generate-kml", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          nomEntreprise,
-          urlEntreprise,
-          telEntreprise,
-          motsCles,
-          adresseDepart,
-          nombrePoints,
-          nombreCercles,
-          nombreItineraires,
-        }),
+        body: JSON.stringify(formData), // Utilisez formData ici
       });
 
       if (!response.ok) {
@@ -64,6 +90,14 @@ export default function KMLGeneratorPage() {
     }
   };
 
+  // Fonction pour gérer les changements de tous les champs
+  const handleChange = (field: string, value: string | number) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 flex flex-col">
       {/* Header Branding */}
@@ -85,8 +119,8 @@ export default function KMLGeneratorPage() {
 
       {/* Main layout */}
       <div className="flex-1 flex flex-col items-center justify-center gap-8 px-4 pb-12">
-        {/* Info button - visible on mobile and desktop */}
-        <button 
+        {/* Info button */}
+        <button
           onClick={() => setShowGuideModal(true)}
           className="md:hidden fixed bottom-6 right-6 z-10 w-14 h-14 rounded-full bg-blue-600 shadow-lg flex items-center justify-center text-white hover:bg-blue-700 transition-colors"
         >
@@ -100,7 +134,7 @@ export default function KMLGeneratorPage() {
           <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-4 text-white text-center">
             <div className="flex items-center justify-between">
               <div className="flex-1 text-left">
-                <button 
+                <button
                   onClick={() => setShowGuideModal(true)}
                   className="hidden md:flex items-center gap-1 text-sm hover:underline"
                 >
@@ -117,7 +151,7 @@ export default function KMLGeneratorPage() {
               <div className="flex-1"></div>
             </div>
           </div>
-          
+
           <form onSubmit={handleSubmit} className="p-6 md:p-8 space-y-8">
             {/* Section Entreprise */}
             <section className="space-y-6">
@@ -129,8 +163,9 @@ export default function KMLGeneratorPage() {
                 </span>
                 <span>Informations de l'entreprise</span>
               </h2>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                {/* Tous les champs utilisent maintenant formData et handleChange */}
                 <div className="space-y-1">
                   <label htmlFor="nom_entreprise" className="block text-sm font-medium text-gray-700">
                     Nom de l'entreprise *
@@ -138,14 +173,14 @@ export default function KMLGeneratorPage() {
                   <input
                     type="text"
                     id="nom_entreprise"
-                    value={nomEntreprise}
-                    onChange={(e) => setNomEntreprise(e.target.value)}
+                    value={formData.nomEntreprise}
+                    onChange={(e) => handleChange('nomEntreprise', e.target.value)}
                     placeholder="Ex: Plomberie Dupont"
                     className="block w-full rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 px-4 py-2.5 transition-all"
                     required
                   />
                 </div>
-                
+
                 <div className="space-y-1">
                   <label htmlFor="url_entreprise" className="block text-sm font-medium text-gray-700">
                     Site web *
@@ -153,14 +188,29 @@ export default function KMLGeneratorPage() {
                   <input
                     type="url"
                     id="url_entreprise"
-                    value={urlEntreprise}
-                    onChange={(e) => setUrlEntreprise(e.target.value)}
+                    value={formData.urlEntreprise}
+                    onChange={(e) => handleChange('urlEntreprise', e.target.value)}
                     placeholder="Ex: https://www.plomberie-dupont.fr"
                     className="block w-full rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 px-4 py-2.5 transition-all"
                     required
                   />
                 </div>
-                
+
+                <div className="space-y-1">
+                  <label htmlFor="url_mybusiness" className="block text-sm font-medium text-gray-700">
+                    URL Google MyBusiness *
+                  </label>
+                  <input
+                    type="url"
+                    id="url_mybusiness"
+                    value={formData.urlMyBusiness}
+                    onChange={(e) => handleChange('urlMyBusiness', e.target.value)}
+                    placeholder="Ex: https://g.co/jfjf/bjedbbd"
+                    className="block w-full rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 px-4 py-2.5 transition-all"
+                    required
+                  />
+                </div>
+
                 <div className="space-y-1">
                   <label htmlFor="tel_entreprise" className="block text-sm font-medium text-gray-700">
                     Téléphone *
@@ -168,14 +218,14 @@ export default function KMLGeneratorPage() {
                   <input
                     type="tel"
                     id="tel_entreprise"
-                    value={telEntreprise}
-                    onChange={(e) => setTelEntreprise(e.target.value)}
+                    value={formData.telEntreprise}
+                    onChange={(e) => handleChange('telEntreprise', e.target.value)}
                     placeholder="Ex: 01 23 45 67 89"
                     className="block w-full rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 px-4 py-2.5 transition-all"
                     required
                   />
                 </div>
-                
+
                 <div className="space-y-1">
                   <label htmlFor="adresse_depart" className="block text-sm font-medium text-gray-700">
                     Adresse de référence *
@@ -183,15 +233,15 @@ export default function KMLGeneratorPage() {
                   <input
                     type="text"
                     id="adresse_depart"
-                    value={adresseDepart}
-                    onChange={(e) => setAdresseDepart(e.target.value)}
+                    value={formData.adresseDepart}
+                    onChange={(e) => handleChange('adresseDepart', e.target.value)}
                     placeholder="Ex: 10 Rue de Paris, 75001 Paris"
                     className="block w-full rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 px-4 py-2.5 transition-all"
                     required
                   />
                 </div>
               </div>
-              
+
               <div className="space-y-1">
                 <label htmlFor="mots_cles" className="block text-sm font-medium text-gray-700">
                   Mots-clés SEO * <span className="text-xs text-gray-500">(séparés par des point-virgules)</span>
@@ -199,8 +249,8 @@ export default function KMLGeneratorPage() {
                 <textarea
                   id="mots_cles"
                   rows={3}
-                  value={motsCles}
-                  onChange={(e) => setMotsCles(e.target.value)}
+                  value={formData.motsCles}
+                  onChange={(e) => handleChange('motsCles', e.target.value)}
                   placeholder="Ex: plombier paris; dépannage plomberie; chauffagiste 75"
                   className="block w-full rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 px-4 py-2.5 transition-all"
                   required
@@ -219,7 +269,7 @@ export default function KMLGeneratorPage() {
                 </span>
                 <span>Paramètres avancés</span>
               </h2>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                 <div className="space-y-1">
                   <label htmlFor="nombre_points" className="block text-sm font-medium text-gray-700">
@@ -228,8 +278,8 @@ export default function KMLGeneratorPage() {
                   <input
                     type="number"
                     id="nombre_points"
-                    value={nombrePoints}
-                    onChange={(e) => setNombrePoints(Number(e.target.value))}
+                    value={formData.nombrePoints}
+                    onChange={(e) => handleChange('nombrePoints', Number(e.target.value))}
                     min="1"
                     max="500"
                     className="block w-full rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 px-4 py-2.5 transition-all"
@@ -237,7 +287,7 @@ export default function KMLGeneratorPage() {
                   />
                   <p className="text-xs text-gray-500">Entre 1 et 500 points</p>
                 </div>
-                
+
                 <div className="space-y-1">
                   <label htmlFor="nombre_cercles" className="block text-sm font-medium text-gray-700">
                     Zones de couverture
@@ -245,8 +295,8 @@ export default function KMLGeneratorPage() {
                   <input
                     type="number"
                     id="nombre_cercles"
-                    value={nombreCercles}
-                    onChange={(e) => setNombreCercles(Number(e.target.value))}
+                    value={formData.nombreCercles}
+                    onChange={(e) => handleChange('nombreCercles', Number(e.target.value))}
                     min="1"
                     max="20"
                     className="block w-full rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 px-4 py-2.5 transition-all"
@@ -254,7 +304,7 @@ export default function KMLGeneratorPage() {
                   />
                   <p className="text-xs text-gray-500">Entre 1 et 20 cercles</p>
                 </div>
-                
+
                 <div className="space-y-1">
                   <label htmlFor="nombre_itineraires" className="block text-sm font-medium text-gray-700">
                     Itinéraires
@@ -262,8 +312,8 @@ export default function KMLGeneratorPage() {
                   <input
                     type="number"
                     id="nombre_itineraires"
-                    value={nombreItineraires}
-                    onChange={(e) => setNombreItineraires(Number(e.target.value))}
+                    value={formData.nombreItineraires}
+                    onChange={(e) => handleChange('nombreItineraires', Number(e.target.value))}
                     min="0"
                     max="50"
                     className="block w-full rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 px-4 py-2.5 transition-all"
@@ -274,7 +324,7 @@ export default function KMLGeneratorPage() {
               </div>
             </section>
 
-            {/* Submit */}
+            {/* Submit et messages */}
             <div className="pt-4">
               <button
                 type="submit"
@@ -303,8 +353,7 @@ export default function KMLGeneratorPage() {
                   </span>
                 )}
               </button>
-              
-              {/* Progress bar */}
+
               {isLoading && (
                 <div className="w-full mt-3">
                   <div className="relative h-1.5 rounded-full bg-gray-200 overflow-hidden">
@@ -312,8 +361,7 @@ export default function KMLGeneratorPage() {
                   </div>
                 </div>
               )}
-              
-              {/* Error */}
+
               {error && (
                 <div className="mt-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm w-full text-center border border-red-200 flex items-start gap-2">
                   <svg className="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -332,8 +380,8 @@ export default function KMLGeneratorPage() {
         <div className="fixed inset-0 z-50 overflow-y-auto">
           <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             {/* Background overlay */}
-            <div 
-              className="fixed inset-0 transition-opacity" 
+            <div
+              className="fixed inset-0 transition-opacity"
               aria-hidden="true"
               onClick={() => setShowGuideModal(false)}
             >
@@ -398,12 +446,6 @@ export default function KMLGeneratorPage() {
     </main>
   );
 }
-
-
-
-
-
-
 
 
 

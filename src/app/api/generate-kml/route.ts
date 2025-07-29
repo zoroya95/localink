@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import polyline from '@mapbox/polyline';
+import { prisma } from '@/db/prisma';
+import { validateSessionToken } from '@/actions/auth';
+import cookie from 'cookie';
+
 
 // Interface pour typer les données reçues du formulaire
 interface KMLRequestData {
@@ -160,12 +164,59 @@ async function generateKMLString(
 
 export async function POST(request: NextRequest) {
     try {
+        // 1. Vérification de l'authentification
+        const cookiesHeader = request.headers.get('cookie');
+        if (!cookiesHeader) {
+            return new NextResponse(JSON.stringify({ error: "Non autorisé" }), { status: 401 });
+        }
+
+        const cookies = cookie.parse(cookiesHeader);
+        const token = cookies.session;
+
+        if (!token) {
+            return new NextResponse(JSON.stringify({ error: "Non autorisé" }), { status: 401 });
+        }
+
+        const sessionResult = await validateSessionToken(token);
+        if (!sessionResult.user || !sessionResult.user.id) {
+            return new NextResponse(JSON.stringify({ error: "Non autorisé" }), { status: 401 });
+        }
+
+        const userId = sessionResult.user.id;
+
+        // 2. Récupération des données du corps
         const data: KMLRequestData = await request.json();
         const GOOGLE_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
 
         if (!GOOGLE_API_KEY) {
             return new NextResponse(JSON.stringify({ error: "Clé API Google non configurée." }), { status: 500 });
         }
+
+        // 3. Upsert avec le userId de la session
+        await prisma.client.upsert({
+            where: {
+                userId_nomEntreprise: {
+                    userId: userId,
+                    nomEntreprise: data.nomEntreprise,
+                }
+            },
+            update: {
+                urlEntreprise: data.urlEntreprise,
+                telEntreprise: data.telEntreprise,
+                motsCles: data.motsCles,
+                adresseDepart: data.adresseDepart,
+                updatedAt: new Date(),
+            },
+            create: {
+                userId: userId,
+                nomEntreprise: data.nomEntreprise,
+                urlEntreprise: data.urlEntreprise,
+                urlMyBusiness: "",
+                telEntreprise: data.telEntreprise,
+                motsCles: data.motsCles,
+                adresseDepart: data.adresseDepart,
+            }
+        });
 
         // 1. Géocoder l'adresse de départ
         const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(data.adresseDepart)}&key=${GOOGLE_API_KEY}`;
