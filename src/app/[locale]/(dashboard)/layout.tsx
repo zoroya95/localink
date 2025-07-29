@@ -7,10 +7,22 @@ import {
   SidebarInset,
   SidebarProvider,
 } from "@/components/ui/sidebar"
+import { getCurrentSession } from "@/actions/auth"
+import { redirect } from "next/navigation"
 
-//import data from "./data.json"
+export default async function DashboardLayout({
+  children
+}: Readonly<{
+  children: React.ReactNode
+}>) {
+  // Vérification de la session utilisateur
+  const session = await getCurrentSession()
+  
+  // Si pas de session utilisateur, redirection vers la page d'accueil
+  if (!session?.user) {
+    redirect("/")
+  }
 
-export default function DashboardLayout({children}: Readonly<{children: React.ReactNode}>) {
   return (
     <SidebarProvider
       style={
@@ -24,9 +36,9 @@ export default function DashboardLayout({children}: Readonly<{children: React.Re
       <SidebarInset>
         <SiteHeader />
         <div className="flex flex-1 flex-col">
-            <div className="@container/main flex flex-1 flex-col gap-2">
-              {children}
-            </div>
+          <div className="@container/main flex flex-1 flex-col gap-2">
+            {children}
+          </div>
         </div>
       </SidebarInset>
     </SidebarProvider>

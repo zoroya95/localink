@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
+import { Menu, MapPin, Route, Layers, Eye, Users, BarChart } from "lucide-react";
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -15,15 +15,50 @@ import {
 } from "@/components/ui/navigation-menu";
 import LocaleSelectLanguage from "@/app/[locale]/LocaleSelectLanguage";
 import Image from "next/image";
+import Features from "./Features";
+import { useI18n } from "@/locales/client";
 
 const navLinks = [
     {
         name: "Fonctionnalités",
         href: "#fonctionnalites",
         items: [
-            { title: "Gestion des clients", href: "#gestion-clients", description: "Suivi complet de votre clientèle" },
-            { title: "Analytics", href: "#analytics", description: "Tableaux de bord et statistiques" },
-            { title: "Réservations", href: "#reservations", description: "Système de prise de rendez-vous" },
+            { 
+                title: "Génération KML", 
+                href: "#kml", 
+                description: "Créez des fichiers KML optimisés pour Google My Maps",
+                icon: <Layers className="w-5 h-5 mr-2 text-blue-500" />
+            },
+            { 
+                title: "Visibilité en ligne", 
+                href: "#visibilite", 
+                description: "Analysez et améliorez votre présence cartographique",
+                icon: <Eye className="w-5 h-5 mr-2 text-blue-500" />
+            },
+            { 
+                title: "Positions & Routes", 
+                href: "#positions", 
+                description: "Gérez vos points géographiques et itinéraires",
+                icon: <MapPin className="w-5 h-5 mr-2 text-blue-500" />
+            },
+            { 
+                title: "Gestion Clients", 
+                href: "#clients", 
+                description: "Suivi complet de votre portefeuille clients",
+                icon: <Users className="w-5 h-5 mr-2 text-blue-500" />
+            },
+            { 
+                title: "Analytics", 
+                href: "#analytics", 
+                description: "Statistiques détaillées sur votre visibilité",
+                icon: <BarChart className="w-5 h-5 mr-2 text-blue-500" />
+            },
+            { 
+                title: "Polylignes", 
+                href: "#polylignes", 
+                description: "Créez des tracés complexes pour une couverture réaliste",
+                icon: <Route className="w-5 h-5 mr-2 text-blue-500" />
+            }
         ]
     },
     {
@@ -34,13 +69,14 @@ const navLinks = [
 
 const Header = () => {
     const [open, setOpen] = useState(false);
+    const t = useI18n();
 
     return (
         <header className="w-full border-b bg-background/80 backdrop-blur sticky top-0 z-50 shadow-sm">
             <div className="container mx-auto flex items-center justify-between py-2 px-4 md:px-10">
                 <Link 
-                    href="/" 
-                    className="flex items-center gap-4 transition-transform hover:scale-105 "
+                     href="/" 
+                    className="flex items-center gap-4 transition-transform hover:scale-105"
                     aria-label="Localink - Retour à l'accueil"
                 >
                     <Image
@@ -53,58 +89,26 @@ const Header = () => {
                     />
                 </Link>
 
-
                 {/* Desktop Nav */}
-                <nav className="hidden md:flex items-center gap-2 lg:gap-4 xl:gap-6">
-                    <NavigationMenu>
-                        <NavigationMenuList>
-                            {navLinks.map((link) => (
-                                <NavigationMenuItem key={link.name}>
-                                    {link.items ? (
-                                        <>
-                                            <NavigationMenuTrigger className="text-base font-semibold text-muted-foreground hover:text-blue-500 data-[active]:text-blue-500 data-[state=open]:text-blue-500 px-3 py-2 rounded-lg transition-colors duration-200">
-                                                {link.name}
-                                            </NavigationMenuTrigger>
-                                            <NavigationMenuContent>
-                                                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                                                    {link.items.map((item) => (
-                                                        <ListItem
-                                                            key={item.title}
-                                                            title={item.title}
-                                                            href={item.href}
-                                                        >
-                                                            {item.description}
-                                                        </ListItem>
-                                                    ))}
-                                                </ul>
-                                            </NavigationMenuContent>
-                                        </>
-                                    ) : (
-                                        <NavigationMenuLink asChild>
-                                            <a 
-                                                href={link.href}
-                                                className={`${navigationMenuTriggerStyle()} text-base font-semibold text-muted-foreground hover:text-blue-500 px-3 py-2 rounded-lg transition-colors duration-200`}
-                                            >
-                                                {link.name}
-                                            </a>
-                                        </NavigationMenuLink>
-                                    )}
-                                </NavigationMenuItem>
-                            ))}
-                        </NavigationMenuList>
-                    </NavigationMenu>
+                <nav className="hidden md:flex items-center gap-6">
+                    <Features />
+                            
+                    <Link href="/pricing">
+                
+                        {t("landing.header.features.price")}
+                        
+                    </Link>
                 </nav>
-
                 {/* Actions */}
                 <div className="hidden md:flex items-center gap-2 lg:gap-3">
                     <div className="relative">
                         <LocaleSelectLanguage />
                     </div>
                     <Link href="/auth/sign-in">
-                        <Button variant="outline" size="sm" className="border-blue-500 text-blue-500 cursor-pointer hover:bg-blue-50 hover:text-blue-600 transition-colors font-semibold px-5 py-2 rounded-lg shadow-none">Se connecter</Button>
+                        <Button variant="outline" size="sm" className="border-blue-500 text-blue-500 cursor-pointer hover:bg-blue-50 hover:text-blue-600 transition-colors font-semibold px-5 py-2 rounded-lg shadow-none">{t("landing.header.signin")}</Button>
                     </Link>
-                    <Link href="/demo">
-                        <Button size="sm" className="bg-gradient-to-r cursor-pointer from-blue-400 to-blue-600 text-white font-bold px-5 py-2 rounded-lg shadow-md hover:from-blue-500 hover:to-blue-700 transition-all border-0">Demander un démo</Button>
+                    <Link href="/auth/sign-in">
+                        <Button size="sm" className="bg-gradient-to-r cursor-pointer from-blue-400 to-blue-600 text-white font-bold px-5 py-2 rounded-lg shadow-md hover:from-blue-500 hover:to-blue-700 transition-all border-0">{t("landing.header.cta")}</Button>
                     </Link>
                 </div>
 
@@ -137,10 +141,14 @@ const Header = () => {
                                             <Link
                                                 key={item.title}
                                                 href={item.href}
-                                                className="text-base font-medium text-muted-foreground/80 hover:text-blue-500 transition-colors py-1 rounded px-2"
+                                                className="flex items-center text-base font-medium text-muted-foreground/80 hover:text-blue-500 transition-colors py-2 rounded px-2"
                                                 onClick={() => setOpen(false)}
                                             >
-                                                {item.title}
+                                                {item.icon}
+                                                <div>
+                                                    <div className="font-semibold">{item.title}</div>
+                                                    <div className="text-sm text-gray-500">{item.description}</div>
+                                                </div>
                                             </Link>
                                         ))}
                                     </div>
@@ -149,11 +157,11 @@ const Header = () => {
                         ))}
                     </nav>
                     <div className="flex flex-col gap-2 mt-4">
-                        <Link href="/login" onClick={() => setOpen(false)}>
+                        <Link href="/auth/sign-in" onClick={() => setOpen(false)}>
                             <Button variant="outline" className="w-full border-blue-500 text-blue-500 hover:bg-blue-50 hover:text-blue-600 font-semibold rounded-lg">Se connecter</Button>
                         </Link>
-                        <Link href="/demo" onClick={() => setOpen(false)}>
-                            <Button className="w-full bg-gradient-to-r from-blue-400 to-blue-600 text-white font-bold rounded-lg hover:from-blue-500 hover:to-blue-700 border-0">Demander un démo</Button>
+                        <Link href="/auth/sign-in" onClick={() => setOpen(false)}>
+                            <Button className="w-full bg-gradient-to-r from-blue-400 to-blue-600 text-white font-bold rounded-lg hover:from-blue-500 hover:to-blue-700 border-0">Essai gratuit</Button>
                         </Link>
                     </div>
                 </div>
@@ -164,20 +172,25 @@ const Header = () => {
 
 const ListItem = React.forwardRef<
     React.ElementRef<"a">,
-    React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
+    React.ComponentPropsWithoutRef<"a"> & { icon?: React.ReactNode }
+>(({ className, title, children, icon, ...props }, ref) => {
     return (
         <li>
             <NavigationMenuLink asChild>
                 <a
                     ref={ref}
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    className="flex items-start space-x-3 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-blue-50 focus:bg-blue-50"
                     {...props}
                 >
-                    <div className="text-sm font-medium leading-none">{title}</div>
-                    <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                        {children}
-                    </p>
+                    <div className="flex-shrink-0">
+                        {icon}
+                    </div>
+                    <div>
+                        <div className="text-sm font-medium leading-none text-gray-900">{title}</div>
+                        <p className="mt-1 text-sm leading-snug text-gray-600">
+                            {children}
+                        </p>
+                    </div>
                 </a>
             </NavigationMenuLink>
         </li>

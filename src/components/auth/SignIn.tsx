@@ -4,6 +4,7 @@ import React, { useActionState } from 'react'
 import { Loader2 } from "lucide-react"
 import Link from 'next/link'
 import { AnimatedTestimonialsDemo } from '@/app/[locale]/(landing)/sections/AnimatedTestimonialsDemo'
+import { useI18n } from '@/locales/client'
 
 const initialState = {
     message: '',
@@ -22,6 +23,8 @@ type SignInProps = {
 const SignIn = ({ action }: SignInProps) => {
     const [showPassword, setShowPassword] = React.useState(false);
     const [state, formAction, isPending] = useActionState(action, initialState);
+    const t = useI18n();
+
     return (
         <div className="min-h-screen h-screen w-screen bg-gray-50 flex items-center justify-center">
             <div className="w-full h-full  mx-auto grid grid-cols-1 md:grid-cols-2 bg-white  overflow-hidden">
@@ -34,8 +37,8 @@ const SignIn = ({ action }: SignInProps) => {
 
                 {/* Colonne droite : formulaire de connexion */}
                 <div className="flex flex-col justify-center items-center p-8 h-full w-full">
-                    <h2 className="mb-2 text-3xl font-extrabold text-blue-500 text-center">Se connecter</h2>
-                    <p className="mb-6 text-center text-base text-gray-600">Découvrez où se classe votre entreprise sur Google et obtenez des conseils pratiques pour vous améliorer.</p>
+                    <h2 className="mb-2 text-3xl font-extrabold text-blue-500 text-center">{t("landing.signin.title")}</h2>
+                    <p className="mb-6 text-center text-base text-gray-600">{t("landing.signin.subtitle")}</p>
                     
 
                     <form action={formAction} className="space-y-6 w-full max-w-md">
@@ -48,7 +51,7 @@ const SignIn = ({ action }: SignInProps) => {
                                     autoComplete="email"
                                     required
                                     className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-base"
-                                    placeholder="Entrer votre email"
+                                    placeholder={t("landing.signin.input_mail")}
                                 />
                             </div>
                             {/* Affichage de l'erreur email */}
@@ -65,7 +68,7 @@ const SignIn = ({ action }: SignInProps) => {
                                     autoComplete="current-password"
                                     required
                                     className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-base pr-10"
-                                    placeholder="Entrer votre mot de passe"
+                                    placeholder={t("landing.signin.input_password")}
                                 />
                                 <button
                                     type="button"
@@ -93,7 +96,7 @@ const SignIn = ({ action }: SignInProps) => {
                         </div>
                         <div className="flex items-center justify-end">
                             <div className="text-sm">
-                                <Link href="/auth/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">Mot de passe oublié ?</Link>
+                                <Link href="/auth/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">{t("landing.signin.forget_password")}</Link>
                             </div>
                         </div>
                         <div>
@@ -108,7 +111,7 @@ const SignIn = ({ action }: SignInProps) => {
                                         Connexion en cours...
                                     </>
 
-                                ) : "Se connecter"}
+                                ) : `${t("landing.signin.sign_in")}`}
                             </button>
                         </div>
                     </form>
@@ -117,9 +120,9 @@ const SignIn = ({ action }: SignInProps) => {
                         <p className="mb-4 text-center text-sm text-red-600">{state.message}</p>
                     )}
                     <p className="mt-4 text-xs text-gray-500 text-center">
-                        En vous connectant, vous acceptez nos{' '}
-                        <Link href="/terms" className="text-blue-600 hover:underline">conditions d'utilisation</Link>{' '}et{' '}
-                        <Link href="/privacy" className="text-blue-600 hover:underline">politique de confidentialité</Link>.
+                        {t("landing.signin.info.title_1")}{' '}
+                        <Link href="/terms" className="text-blue-600 hover:underline">{t("landing.signin.info.condi_utilisation")}</Link>{' '}{t("landing.signin.info.title_2")}{' '}
+                        <Link href="/privacy" className="text-blue-600 hover:underline">{t("landing.signin.info.politic_confidential")}</Link>.
                     </p>
                     <div className="mt-8 w-full">
                         <div className="relative">
@@ -127,17 +130,17 @@ const SignIn = ({ action }: SignInProps) => {
                                 <div className="w-full border-t border-gray-300" />
                             </div>
                             <div className="relative flex justify-center text-sm">
-                                <span className="px-2 bg-white text-gray-500">Nouveau ?</span>
+                                <span className="px-2 bg-white text-gray-500">{t("landing.signin.new")}</span>
                             </div>
                         </div>
                         <div className="mt-6">
                             <p className="text-sm text-gray-600 text-center">
-                                Pas encore de compte ?{' '}
+                                {t("landing.signin.not_have_account")}{' '}
                                 <Link
                                     href="/auth/sign-up"
                                     className="text-blue-600 cursor-pointer hover:underline hover:text-blue-700"
                                 >
-                                    Créer un compte
+                                    {t("landing.signin.not_have_account_signup")}
                                 </Link>
                             </p>
                         </div>

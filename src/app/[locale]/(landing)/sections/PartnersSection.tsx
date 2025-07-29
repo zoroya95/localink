@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useI18n } from "@/locales/client";
 
 export default function PartnersSection() {
   const [count, setCount] = useState(0);
@@ -35,16 +36,16 @@ export default function PartnersSection() {
     { id: 5, logo: "/entreprise/claudia.png", alt: "Claudia" },
     { id: 6, logo: "/entreprise/pocfly.png", alt: "Pocfly" },
   ];
-
+  const t = useI18n();
   return (
     <section className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Nos partenaires de confiance
+            {t("landing.partnership.title")}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Rejoignez les entreprises qui optimisent leur visibilité avec Localink
+            {t("landing.partnership.subtitle")}
           </p>
         </div>
 

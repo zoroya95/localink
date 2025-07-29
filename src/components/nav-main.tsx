@@ -1,6 +1,6 @@
 "use client"
 
-import { IconCirclePlusFilled, IconMail, type Icon } from "@tabler/icons-react"
+
 import { Button } from "@/components/ui/button"
 import {
   IconCamera,
@@ -35,67 +35,68 @@ import { use } from "react"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
+import { FileCode2, LayoutDashboard } from "lucide-react"
 
 const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "/dashboards",
-      icon: IconDashboard,
+      url: "/dashboard",
+      icon: LayoutDashboard,
     },
     {
-      title: "Lifecycle",
-      url: "/dashboards/lifecycle",
-      icon: IconListDetails,
+      title: "Generator",
+      url: "/dashboard/generator",
+      icon: FileCode2,
     },
     {
       title: "Analytics",
-      url: "/dashboards/analytics",
+      url: "/dashboard/analytics",
       icon: IconChartBar,
     },
     {
-      title: "Projects",
-      url: "/dashboards/projects",
-      icon: IconFolder,
-    },
-    {
-      title: "Team",
-      url: "/dashboards/team",
+      title: "My Clients",
+      url: "/dashboard/clients",
       icon: IconUsers,
+    },
+     {
+      title: "Settings",
+      url: "/dashboard/profile",
+      icon: IconSettings,
     },
   ],
   
   navSecondary: [
     {
       title: "Settings",
-      url: "/dashboards/settings",
+      url: "/dashboard/settings",
       icon: IconSettings,
     },
     {
       title: "Get Help",
-      url: "/dashboards/help",
+      url: "/dashboard/help",
       icon: IconHelp,
     },
     {
       title: "Search",
-      url: "/dashboards/search",
+      url: "/dashboard/search",
       icon: IconSearch,
     },
   ],
   documents: [
     {
       name: "Data Library",
-      url: "/dashboards/documents/data-library",
+      url: "/dashboard/documents/data-library",
       icon: IconDatabase,
     },
     {
       name: "Reports",
-      url: "/dashboards/documents/reports",
+      url: "/dashboard/documents/reports",
       icon: IconReport,
     },
     {
       name: "Word Assistant",
-      url: "/dashboards/documents/word-assistant",
+      url: "/dashboard/documents/word-assistant",
       icon: IconFileWord,
     },
   ],

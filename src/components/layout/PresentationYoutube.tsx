@@ -1,11 +1,13 @@
+import { useI18n } from "@/locales/client";
 import React from "react";
 
 const PresentationYoutube = () => {
+    const t = useI18n();
     return (
         <section className="py-16 bg-white">
             <div className="max-w-5xl mx-auto px-4 text-center">
                 <h2 className="text-3xl md:text-4xl font-extrabold mb-8">
-                    Découvrez Localink 
+                    {t("landing.presentationvideo.title")}
                 </h2>
                 <div className="w-full aspect-video rounded-2xl overflow-hidden shadow-lg border-8 border-orange-100 mx-auto">
                     <iframe

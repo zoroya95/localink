@@ -1,13 +1,16 @@
 "use client";
 
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
+import { useI18n } from "@/locales/client";
 import { FaMapMarkerAlt, FaRoute, FaLayerGroup, FaGoogle } from "react-icons/fa";
 
 export function AnimatedTestimonialsDemo() {
+  const t = useI18n();
+
   const testimonials = [
     {
       quote:
-        "En 3 mois, notre visibilité sur Google Maps a explosé grâce aux 15 000 points stratégiques générés par Localink. Notre trafic local a augmenté de 220%.",
+        `${t("landing.testimonials.title_1")}`,
       name: "Marc Dubois",
       designation: "Directeur de chaîne hôtelière",
       src: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -18,7 +21,7 @@ export function AnimatedTestimonialsDemo() {
     },
     {
       quote:
-        "Le système de routes virtuelles a donné une crédibilité incroyable à notre réseau de distribution. Nos partenaires sont impressionnés par notre couverture géographique.",
+        `${t("landing.testimonials.title_2")}`,
       name: "Sophie Lambert",
       designation: "Responsable logistique",
       src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -29,7 +32,7 @@ export function AnimatedTestimonialsDemo() {
     },
     {
       quote:
-        "Avant Localink, nos 12 agences étaient invisibles sur Maps. Maintenant, nous dominons les recherches locales avec un maillage territorial parfait.",
+        `${t("landing.testimonials.title_3")}`,
       name: "Thomas Leroy",
       designation: "Directeur d'agences immobilières",
       src: "https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -40,7 +43,7 @@ export function AnimatedTestimonialsDemo() {
     },
     {
       quote:
-        "La génération automatique de polylignes a transformé notre petite entreprise en acteur régional crédible en 6 semaines seulement.",
+        `${t("landing.testimonials.title_4")}`,
       name: "Amélie Chen",
       designation: "Fondatrice de Chen Logistics",
       src: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -51,7 +54,7 @@ export function AnimatedTestimonialsDemo() {
     },
     {
       quote:
-        "Notre KML personnalisé avec 8 000 points de vente virtuels nous a permis de décrocher un contrat majeur avec un distributeur national.",
+        `${t("landing.testimonials.title_5")}`,
       name: "David Moreau",
       designation: "PDG de Moreau Distribution",
       src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",

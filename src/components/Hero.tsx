@@ -38,7 +38,7 @@ const Hero = () => {
                     {/* CTA avec statistiques impressionnantes */}
                     <div className="flex flex-col sm:flex-row gap-6 w-full justify-center items-center">
                         <Button size="lg" asChild className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold px-8 py-6 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105 text-lg">
-                            <Link href="/demo">
+                            <Link href="/auth/sign-in">
                                 {t("landing.hero.demarrer")}  →
                             </Link>
                         </Button>

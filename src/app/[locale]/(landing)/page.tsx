@@ -13,38 +13,40 @@ import {
   FaShieldAlt,
   FaRegSmile,
 } from "react-icons/fa";
+import { useI18n } from "@/locales/client";
 
 const AdvantagesSection = () => {
+  const t = useI18n();
   const advantages = [
     {
       icon: <FaMapMarkerAlt className="h-10 w-10 text-blue-500 mb-4" />,
-      title: "Visibilité locale optimisée",
-      desc: "Améliorez votre présence sur les cartes et moteurs de recherche grâce à des liens courts et ciblés.",
+      title: `${t("landing.advantage_section.subtitle_1.title")}`, 
+      desc: `${t("landing.advantage_section.subtitle_1.description")}`,
     },
     {
       icon: <FaChartLine className="h-10 w-10 text-blue-500 mb-4" />,
-      title: "Suivi en temps réel",
-      desc: "Analysez les clics, les zones de partage et l'engagement local via des statistiques simples et précises.",
+      title: `${t("landing.advantage_section.subtitle_2.title")}`, 
+      desc: `${t("landing.advantage_section.subtitle_2.description")}`,
     },
     {
       icon: <FaUsers className="h-10 w-10 text-blue-500 mb-4" />,
-      title: "Partage simplifié",
-      desc: "Générez et diffusez des liens locaux adaptés à chaque public, en quelques clics.",
+      title: `${t("landing.advantage_section.subtitle_3.title")}`, 
+      desc: `${t("landing.advantage_section.subtitle_3.description")}`,
     },
     {
       icon: <FaStar className="h-10 w-10 text-blue-500 mb-4" />,
-      title: "Réputation renforcée",
-      desc: "Valorisez les retours de vos clients et boostez votre image de marque locale.",
+      title: `${t("landing.advantage_section.subtitle_4.title")}`, 
+      desc: `${t("landing.advantage_section.subtitle_4.description")}`,
     },
     {
       icon: <FaShieldAlt className="h-10 w-10 text-blue-500 mb-4" />,
-      title: "Sécurité & confidentialité",
-      desc: "Vos données sont protégées selon les normes les plus strictes, pour une tranquillité totale.",
+      title: `${t("landing.advantage_section.subtitle_5.title")}`, 
+      desc: `${t("landing.advantage_section.subtitle_5.description")}`,
     },
     {
       icon: <FaRegSmile className="h-10 w-10 text-blue-500 mb-4" />,
-      title: "Support réactif & humain",
-      desc: "Bénéficiez d'une assistance experte, à l'écoute de vos besoins locaux.",
+      title: `${t("landing.advantage_section.subtitle_6.title")}`, 
+      desc: `${t("landing.advantage_section.subtitle_6.description")}`,
     },
   ];
 

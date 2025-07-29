@@ -11,7 +11,7 @@ const Footer = () => {
                     <div className="col-span-2">
                         <Link 
                             href="/" 
-                            className="flex items-center gap-4 transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg"
+                            className="flex items-center "
                             aria-label="Localink - Retour à l'accueil"
                         >
                             <Image
@@ -62,7 +62,7 @@ const Footer = () => {
                             Entreprise
                         </h3>
                         <ul className="mt-4 space-y-4">
-                            {['À propos', 'Carrière', 'Partenaires TPE/PME', 'Partenaires Enseignes'].map((item) => (
+                            {['À propos', 'Partenaires TPE/PME', 'Partenaires Enseignes'].map((item) => (
                                 <li key={item}>
                                     <a href="#" className="text-base text-gray-500 hover:text-gray-900">
                                         {item}
@@ -90,7 +90,7 @@ const Footer = () => {
                     </div>
                     <div className="mt-4 md:mt-0">
                         <select className="bg-transparent text-gray-500 text-sm border-0 focus:ring-0">
-                            {['Français', 'English', 'Italiano', 'Español'].map((lang) => (
+                            {['Français', 'English', 'Italiano', 'Español', 'Português'].map((lang) => (
                                 <option key={lang} value={lang}>{lang}</option>
                             ))}
                         </select>

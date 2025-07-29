@@ -1,19 +1,18 @@
-// prisma.ts
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client'
 
 const prismaClientSingleton = () => {
-  return new PrismaClient();
-};
-
-// Déclaration globale pour éviter la recréation de PrismaClient en développement
-declare global {
-  var prismaGlobal: PrismaClient | undefined;
+  return new PrismaClient({
+    // Aucune configuration datasource nécessaire ici car gérée dans schema.prisma
+    log: ['query', 'info', 'warn', 'error'] // Optionnel : pour le débogage
+  })
 }
 
-// Utilisation du singleton ou de l'instance globale existante
-export const prisma = globalThis.prismaGlobal ?? prismaClientSingleton();
+declare global {
+  var prismaGlobal: PrismaClient | undefined
+}
 
-// En mode développement, on conserve l'instance dans globalThis pour éviter de recréer l'instance à chaque requête
+export const prisma = globalThis.prismaGlobal ?? prismaClientSingleton()
+
 if (process.env.NODE_ENV !== 'production') {
-  globalThis.prismaGlobal = prisma;
+  globalThis.prismaGlobal = prisma
 }

@@ -5,6 +5,7 @@ import { Loader2 } from "lucide-react"
 import Link from 'next/link'
 import Image from 'next/image'
 import { AnimatedTestimonialsDemo } from '@/app/[locale]/(landing)/sections/AnimatedTestimonialsDemo'
+import { useI18n } from '@/locales/client'
 
 const initialState = {
     message: '',
@@ -18,6 +19,7 @@ const SignUp = ({ action }: SignUpProps) => {
     const [showPassword, setShowPassword] = React.useState(false);
     const [showConfirm, setShowConfirm] = React.useState(false);
     const [state, formAction, isPending] = useActionState(action, initialState);
+    const t = useI18n();
 
     return (
         <div className="min-h-screen h-screen w-screen bg-gray-50 flex items-center justify-center">
@@ -30,8 +32,8 @@ const SignUp = ({ action }: SignUpProps) => {
                 </div>
                 {/* Colonne droite : formulaire d'inscription */}
                 <div className="flex flex-col justify-center items-center p-8 h-full w-full">
-                    <h2 className="mb-2 text-3xl font-extrabold text-blue-500 text-center">S'inscrire</h2>
-                    <p className="mb-6 text-center text-base text-gray-600">Découvrez votre classement Google actuel et obtenez des stratégies d'amélioration concrètes.</p>
+                    <h2 className="mb-2 text-3xl font-extrabold text-blue-500 text-center">{t("landing.signup.title")}</h2>
+                    <p className="mb-6 text-center text-base text-gray-600">{t("landing.signup.subtitle")}</p>
                     
                     <form action={formAction} className="space-y-6 w-full max-w-md">
                         {/* Message d'erreur général */}
@@ -51,7 +53,7 @@ const SignUp = ({ action }: SignUpProps) => {
                                     autoComplete="email"
                                     required
                                     className="block w-full px-3 py-2 border border-gray-300 rounded-2xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-blue-500 sm:text-base"
-                                    placeholder="Entrer votre email"
+                                    placeholder={t("landing.signup.input_mail")}
                                 />
                             </div>
                         </div>
@@ -69,7 +71,7 @@ const SignUp = ({ action }: SignUpProps) => {
                                     required
                                     minLength={8}
                                     className="block w-full px-3 py-2 border border-gray-300 rounded-2xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-base pr-10"
-                                    placeholder="Entrer votre mot de passe"
+                                    placeholder={t("landing.signup.input_password")}
                                 />
                                 <button
                                     type="button"
@@ -102,13 +104,13 @@ const SignUp = ({ action }: SignUpProps) => {
                                         <Loader2 className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" />
                                         Inscription en cours...
                                     </>
-                                ) : "S'inscrire"}
+                                ) : `${t("landing.signup.sign_up")}`}
                             </button>
                         </div>
                         <p className="mt-4 text-xs text-gray-500 text-center">
-                            En vous inscrivant, vous acceptez nos{' '}
-                            <Link href="/terms" className="text-blue-500 hover:underline">conditions d'utilisation</Link>{' '}et{' '}
-                            <Link href="/privacy" className="text-blue-500 hover:underline">politique de confidentialité</Link>.
+                            {t("landing.signup.info.title_1")}{' '}
+                            <Link href="/terms" className="text-blue-500 hover:underline">{t("landing.signup.info.condi_utilisation")}</Link>{' '}{t("landing.signup.info.title_2")}{' '}
+                            <Link href="/privacy" className="text-blue-500 hover:underline">{t("landing.signup.info.politic_confidential")}</Link>.
                         </p>
                     </form>
                     <div className="mt-8 w-full">
@@ -117,17 +119,17 @@ const SignUp = ({ action }: SignUpProps) => {
                                 <div className="w-full border-t border-gray-300" />
                             </div>
                             <div className="relative flex justify-center text-sm">
-                                <span className="px-2 bg-white text-gray-500">Déjà inscrit ?</span>
+                                <span className="px-2 bg-white text-gray-500">{t("landing.signup.i_signup")}</span>
                             </div>
                         </div>
                         <div className="mt-6">
                             <p className="text-sm text-gray-600 text-center">
-                                Vous avez déjà un compte ?{' '}
+                                {t("landing.signup.you_have_account")}{' '}
                                 <Link
                                     href="/auth/sign-in"
                                     className="text-blue-500 cursor-pointer hover:underline hover:text-blue-500"
                                 >
-                                    Connectez-vous
+                                    {t("landing.signup.you_have_account_signin")}
                                 </Link>
                             </p>
                         </div>

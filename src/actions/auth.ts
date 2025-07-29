@@ -57,6 +57,34 @@ export const resetPassword = async (token: string, newPassword: string) => {
     return { success: true };
 };
 
+export async function changePassword(
+  userId: number,
+  currentPassword: string,
+  newPassword: string
+) {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+  })
+
+  if (!user) {
+    return { error: "Utilisateur non trouvé" }
+  }
+
+  // Vérifier l'ancien mot de passe
+  const currentPasswordHash = await hashPassword(currentPassword)
+  if (currentPasswordHash !== user.passwordHash) {
+    return { error: "Mot de passe actuel incorrect" }
+  }
+
+  // Mettre à jour le mot de passe
+  const newPasswordHash = await hashPassword(newPassword)
+  await prisma.user.update({
+    where: { id: userId },
+    data: { passwordHash: newPasswordHash },
+  })
+
+  return { success: true }
+}
 
 
 export async function generateSessionToken(): Promise<string> {

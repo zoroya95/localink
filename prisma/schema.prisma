@@ -1,9 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
+// schema.prisma
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
@@ -15,20 +10,21 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-// Plateforme Client (marketplace)
 model User {
-  id             Int             @id @default(autoincrement())
-  email          String          @unique
-  passwordHash   String
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-  emailVerified  DateTime?
-  role           String          @default("USER")
-  sessions       Session[]
-  passwordResets PasswordReset[]
+  id                Int               @id @default(autoincrement())
+  email             String            @unique
+  passwordHash      String
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  emailVerified     DateTime?
+  role              String            @default("USER")
+  sessions          Session[]
+  passwordResets    PasswordReset[]
+  stripeCustomerId  String?           @unique
+  subscriptionLevel String?           @default("FREE")
+  subscriptions     Subscription[]
 }
 
-// Pour la gestion du reset de mot de passe
 model PasswordReset {
   id        Int      @id @default(autoincrement())
   token     String   @unique
@@ -41,7 +37,21 @@ model PasswordReset {
 
 model Session {
   id        String   @id
-  userId    Int? // Pour les User
+  userId    Int?
   expiresAt DateTime
   user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Subscription {
+  id                String     @id @default(uuid())
+  userId            Int
+  user              User       @relation(fields: [userId], references: [id])
+  stripeSubscriptionId String  @unique
+  stripePriceId     String
+  status            String     // active, canceled, incomplete, etc.
+  currentPeriodEnd  DateTime
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@index([userId])
 }

@@ -5,48 +5,51 @@ import { Button } from '@/components/ui/button'
 import FAQSection from '@/components/layout/FAQSection'
 import HighlightText from '@/components/layout/HighlightText'
 import Link from 'next/link'
+import { useI18n } from '@/locales/client'
 
 export default function PricingPage() {
+  const t = useI18n();
+  
   const plans = [
     {
-      name: "Gratuit",
+      name: `${t("landing.pricing.plan.plan_1.title")}`,
       price: "0$",
-      period: "/mois",
-      description: "Pour tester et découvrir la puissance de l’outil.",
-      cta: "S’enregistrer",
+      period: `/${t("landing.pricing.plan.plan_1.month")}`,
+      description: `${t("landing.pricing.plan.plan_1.subtitle")}`,
+      cta: `${t("landing.pricing.plan.plan_1.signin")}`,
       popular: false,
       features: [
-        "3 Clients sauvegardés",
-        "200 points maximum par carte",
-        "3 itinéraires maximum par carte"
+        `${t("landing.pricing.plan.plan_1.inclus.sub_1")}`,
+        `${t("landing.pricing.plan.plan_1.inclus.sub_2")}`,
+        `${t("landing.pricing.plan.plan_1.inclus.sub_3")}`
       ]
     },
     {
-      name: "Professionnel",
+      name: `${t("landing.pricing.plan.plan_2.title")}`,
       price: "39.99$",
-      period: "/mois",
-      description: "Idéal pour les indépendants et les petites entreprises.",
-      cta: "Choisissez le plan Pro",
+      period: `/${t("landing.pricing.plan.plan_2.month")}`,
+      description: `${t("landing.pricing.plan.plan_2.subtitle")}`,
+      cta: `${t("landing.pricing.plan.plan_2.signin")}`,
       popular: true,
       features: [
-        "50 clients sauvegardés",
-        "2 500 Nombre maximum de points par carte",
-        "20 itinéraires maximum par carte",
-        "Assistance par e-mail"
+        `${t("landing.pricing.plan.plan_2.inclus.sub_1")}`,
+        `${t("landing.pricing.plan.plan_2.inclus.sub_2")}`,
+        `${t("landing.pricing.plan.plan_2.inclus.sub_3")}`,
+        `${t("landing.pricing.plan.plan_2.inclus.sub_4")}`
       ]
     },
     {
-      name: "Premium",
+      name: `${t("landing.pricing.plan.plan_3.title")}`,
       price: "99.99$",
-      period: "/mois",
-      description: "Pour les agences et les gros utilisateurs.",
-      cta: "Passez au Premium",
+      period: `${t("landing.pricing.plan.plan_3.month")}`,
+      description: `${t("landing.pricing.plan.plan_3.subtitle")}`,
+      cta: `${t("landing.pricing.plan.plan_3.signin")}`,
       popular: false,
       features: [
-        "Clients Unlimited",
-        "Points illimités",
-        "50 itinéraires maximum par carte",
-        "Assistance prioritaire"
+        `${t("landing.pricing.plan.plan_3.inclus.sub_1")}`,
+        `${t("landing.pricing.plan.plan_3.inclus.sub_2")}`,
+        `${t("landing.pricing.plan.plan_3.inclus.sub_3")}`,
+        `${t("landing.pricing.plan.plan_3.inclus.sub_4")}`
       ]
     }
   ]
@@ -90,10 +93,10 @@ export default function PricingPage() {
         {/* Hero section */}
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-            Une tarification simple et adaptée à  <HighlightText variant={"fancy-slant"} color='blue'>votre croissance</HighlightText>
+              {t("landing.pricing.title_1")} <HighlightText variant={"fancy-slant"} color='blue'>{t("landing.pricing.title_2")}</HighlightText>
           </h1>
           <p className="mt-6 text-xl text-gray-600 max-w-3xl mx-auto">
-           Choisissez le plan qui correspond à vos ambitions.
+           {t("landing.pricing.subtitle")}
           </p>
         </div>
 
@@ -144,7 +147,7 @@ export default function PricingPage() {
 
               <div className="border-t border-gray-200 bg-gray-50 p-8">
                 <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-4">
-                  Ce qui est inclus
+                  {t("landing.pricing.plan.plan_1.inclus.title")}
                 </h3>
                 <ul className="space-y-3">
                   {plan.features.map((feature, i) => (
