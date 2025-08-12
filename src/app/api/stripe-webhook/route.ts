@@ -2,6 +2,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
 import {prisma} from '../../../db/prisma';
+import { Readable } from 'stream';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-06-30.basil',
@@ -14,7 +15,7 @@ export const config = {
   },
 };
 
-async function buffer(readable: any) {
+async function buffer(readable: Readable) {
   const chunks: Buffer[] = [];
   for await (const chunk of readable) {
     chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk);

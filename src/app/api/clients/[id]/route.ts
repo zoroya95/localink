@@ -1,15 +1,23 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server'; // Importez NextRequest si vous l'utilisez
 import { prisma } from '@/db/prisma';
 import { validateSessionToken } from '@/actions/auth';
-import cookie from 'cookie';
+import { parse } from 'cookie';
+
+// Définissez une interface pour les paramètres de la route
+// Cela rend le typage du deuxième argument plus clair et réutilisable.
+interface RouteContext {
+  params: {
+    id: string; // 'id' correspond au nom de votre dossier dynamique [id]
+  };
+}
 
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest, // Il est recommandé d'utiliser NextRequest si vous accédez aux cookies, headers, etc.
+  context: RouteContext // Utilisez l'interface définie pour typer explicitement le contexte
 ) {
   try {
     // Authentification
-    const cookies = cookie.parse(request.headers.get('cookie') || '');
+    const cookies = parse(request.headers.get('cookie') || '');
     const token = cookies.session;
 
     if (!token) {
@@ -21,19 +29,21 @@ export async function GET(
       return NextResponse.json({ error: "Session invalide" }, { status: 401 });
     }
 
+    const { id } = context.params; // Accédez aux paramètres via l'objet context
+
     // Validation de l'ID
-    if (!params?.id) {
+    if (!id) { // Le check `if (!params?.id)` devient `if (!id)`
       return NextResponse.json({ error: "ID client manquant" }, { status: 400 });
     }
 
-    const clientId = Number(params.id);
+    const clientId = Number(id); // Utilisez 'id' directement
     if (isNaN(clientId)) {
       return NextResponse.json({ error: "ID client invalide" }, { status: 400 });
     }
 
     // Récupération du client
     const client = await prisma.client.findUnique({
-      where: { 
+      where: {
         id: clientId,
         userId: sessionResult.user.id
       },

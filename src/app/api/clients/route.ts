@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/db/prisma';
 import { validateSessionToken } from '@/actions/auth';
-import cookie from 'cookie';
+import { parse } from 'cookie';
+
 
 export async function GET(request: Request) {
   try {
     // Authentification
-    const cookies = cookie.parse(request.headers.get('cookie') || '');
+    const cookies = parse(request.headers.get('cookie') || '');
     const token = cookies.session;
 
     if (!token) {

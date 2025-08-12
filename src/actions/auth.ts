@@ -217,7 +217,7 @@ export const verifyPassword = async (password: string, hash: string) => {
     return passwordHash === hash;
 }
 
-export const registerUser = async (email: string, password: string, storeName?: string) => {
+export const registerUser = async (email: string, password: string, ) => {
     const passwordHash = await hashPassword(password);
     try {
         const user = await prisma.user.create({
@@ -238,6 +238,7 @@ export const registerUser = async (email: string, password: string, storeName?: 
             error: null
         }
     } catch (e) {
+        console.log(e)
         return {
             user: null,
             error: "Failled to register User"

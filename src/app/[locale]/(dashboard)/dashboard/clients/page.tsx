@@ -35,10 +35,10 @@ export default function ClientsPage() {
       }
       
       const data = await response.json();
-      setClients(data.map((client: any) => ({
-        ...client,
-        createdAt: new Date(client.createdAt)
-      })));
+      setClients(data.map((client: Client) => ({
+  ...client,
+  createdAt: new Date(client.createdAt)
+})));
       
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Erreur inconnue';

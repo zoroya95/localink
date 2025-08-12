@@ -26,8 +26,15 @@ export async function POST(req: NextRequest) {
         });
 
         return NextResponse.json(subscription, { status: 200 });
-    } catch (error: any) {
+
+    } catch (error: unknown) {
         console.error(error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
+
+        if (error instanceof Error) {
+            return NextResponse.json({ error: error.message }, { status: 500 });
+        }
+
+        // fallback générique si ce n'est pas une instance de Error
+        return NextResponse.json({ error: 'Une erreur inconnue est survenue.' }, { status: 500 });
     }
 }

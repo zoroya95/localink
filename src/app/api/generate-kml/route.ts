@@ -2,7 +2,15 @@ import { NextRequest, NextResponse } from 'next/server';
 import polyline from '@mapbox/polyline';
 import { prisma } from '@/db/prisma';
 import { validateSessionToken } from '@/actions/auth';
-import cookie from 'cookie';
+import { parse } from 'cookie';
+
+
+interface KMLPoint {
+  Nom: string;
+  Latitude: number;
+  Longitude: number;
+  Description: string;
+}
 
 
 // Interface pour typer les données reçues du formulaire
@@ -19,47 +27,47 @@ interface KMLRequestData {
 
 // Fonction pour générer les points de données (équivalent de generer_donnees)
 function generateDataPoints(data: KMLRequestData, center: { lat: number; lng: number }) {
-    const keywords = data.motsCles.split(';').map(kw => kw.trim()).filter(Boolean);
-    if (!keywords.length) return { points: [], circleRadii: [] };
+  const keywords = data.motsCles.split(';').map(kw => kw.trim()).filter(Boolean);
+  if (!keywords.length) return { points: [], circleRadii: [] };
 
-    const companyDescription =
-        `${data.nomEntreprise} — <a href="${data.urlEntreprise}" target="_blank">Site web</a>, Tel : <a href="tel:${data.telEntreprise}">${data.telEntreprise}</a>`;
+  const companyDescription =
+    `${data.nomEntreprise} — <a href="${data.urlEntreprise}" target="_blank">Site web</a>, Tel : <a href="tel:${data.telEntreprise}">${data.telEntreprise}</a>`;
 
-    const allPoints: any[] = [];
-    const circleRadii: number[] = [];
-    let keywordIndex = 0;
-    const pointsPerCircle = Math.max(1, Math.floor(data.nombrePoints / data.nombreCercles));
-    const circleSpacing = 0.05;
-    const firstCircleRadius = 0.04;
+  const allPoints: KMLPoint[] = [];
+  const circleRadii: number[] = [];
+  let keywordIndex = 0;
+  const pointsPerCircle = Math.max(1, Math.floor(data.nombrePoints / data.nombreCercles));
+  const circleSpacing = 0.05;
+  const firstCircleRadius = 0.04;
 
-    for (let i = 0; i < data.nombreCercles; i++) {
-        const currentRadius = firstCircleRadius + (i * circleSpacing);
-        circleRadii.push(currentRadius);
+  for (let i = 0; i < data.nombreCercles; i++) {
+    const currentRadius = firstCircleRadius + (i * circleSpacing);
+    circleRadii.push(currentRadius);
 
-        for (let j = 0; j < pointsPerCircle; j++) {
-            const angle = (2 * Math.PI / pointsPerCircle) * j;
-            const latOffset = currentRadius * Math.sin(angle);
-            const lngOffset = currentRadius * Math.cos(angle) / Math.cos(center.lat * Math.PI / 180);
-            const currentKeyword = keywords[keywordIndex % keywords.length];
+    for (let j = 0; j < pointsPerCircle; j++) {
+      const angle = (2 * Math.PI / pointsPerCircle) * j;
+      const latOffset = currentRadius * Math.sin(angle);
+      const lngOffset = currentRadius * Math.cos(angle) / Math.cos(center.lat * Math.PI / 180);
+      const currentKeyword = keywords[keywordIndex % keywords.length];
 
-            allPoints.push({
-                Nom: currentKeyword,
-                Latitude: center.lat + latOffset,
-                Longitude: center.lng + lngOffset,
-                Description: `<b>Service :</b> ${currentKeyword}<br>${companyDescription}`,
-            });
-            keywordIndex++;
-        }
+      allPoints.push({
+        Nom: currentKeyword,
+        Latitude: center.lat + latOffset,
+        Longitude: center.lng + lngOffset,
+        Description: `<b>Service :</b> ${currentKeyword}<br>${companyDescription}`,
+      });
+      keywordIndex++;
     }
-    return { points: allPoints, circleRadii };
+  }
+  return { points: allPoints, circleRadii };
 }
 
 // Fonction pour construire la chaîne de caractères KML (équivalent de generer_carte_complete)
 async function generateKMLString(
-    data: KMLRequestData,
-    center: { lat: number; lng: number },
-    points: any[],
-    circleRadii: number[]
+  data: KMLRequestData,
+  center: { lat: number; lng: number },
+  points: KMLPoint[],
+  circleRadii: number[]
 ): Promise<string> {
     const GOOGLE_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
 
@@ -170,7 +178,7 @@ export async function POST(request: NextRequest) {
             return new NextResponse(JSON.stringify({ error: "Non autorisé" }), { status: 401 });
         }
 
-        const cookies = cookie.parse(cookiesHeader);
+        const cookies = parse(cookiesHeader);
         const token = cookies.session;
 
         if (!token) {
@@ -248,8 +256,10 @@ export async function POST(request: NextRequest) {
             },
         });
 
-    } catch (error: any) {
-        console.error(error);
-        return new NextResponse(JSON.stringify({ error: error.message || "Une erreur interne est survenue." }), { status: 500 });
-    }
+    } catch (error: unknown) {
+  console.error(error);
+
+  const message = error instanceof Error ? error.message : "Une erreur interne est survenue.";
+  return new NextResponse(JSON.stringify({ error: message }), { status: 500 });
+}
 }

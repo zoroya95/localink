@@ -1,9 +1,9 @@
 import PricingPage from '@/app/[locale]/(landing)/pricing/page'
 import React from 'react'
 
-type Props = {}
 
-const Billing = (props: Props) => {
+
+const Billing = () => {
   return (
     <div>
         <PricingPage />
